@@ -45,8 +45,9 @@ swig_link_libraries(SubnetTree ${PYTHON_LIBRARIES})
 ########################################################################
 ## Install Files
 
-install(FILES SubnetTree.py DESTINATION lib/broctl)
-install(TARGETS ${SWIG_MODULE_SubnetTree_REAL_NAME} DESTINATION lib/broctl)
+install(FILES SubnetTree.py DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(TARGETS ${SWIG_MODULE_SubnetTree_REAL_NAME}
+        DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 ########################################################################
 ## Build Summary
