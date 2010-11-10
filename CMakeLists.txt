@@ -45,7 +45,10 @@ swig_link_libraries(SubnetTree ${PYTHON_LIBRARIES})
 ########################################################################
 ## Install Files
 
-install(FILES SubnetTree.py DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(FILES
+            ${CMAKE_CURRENT_BINARY_DIR}/SubnetTree.py
+            ${CMAKE_CURRENT_BINARY_DIR}/SubnetTree.pyc
+        DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(TARGETS ${SWIG_MODULE_SubnetTree_REAL_NAME}
         DESTINATION ${CMAKE_INSTALL_PREFIX})
 
