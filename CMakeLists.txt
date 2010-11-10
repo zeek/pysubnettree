@@ -29,6 +29,7 @@ endif ()
 ## Dependency Configuration
 
 find_package(SWIG REQUIRED)
+find_package(PythonInterp REQUIRED)
 find_package(PythonLibs REQUIRED)
 include_directories(BEFORE ${PYTHON_INCLUDE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
@@ -45,6 +46,12 @@ swig_link_libraries(SubnetTree ${PYTHON_LIBRARIES})
 ########################################################################
 ## Install Files
 
+# create the byte-compiled module for installation
+set(compileArg "import py_compile; py_compile.compile('SubnetTree.py')")
+install(CODE
+    "execute_process(COMMAND ${PYTHON_EXECUTABLE} -c \"${compileArg}\"
+                     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})"
+)
 install(FILES
             ${CMAKE_CURRENT_BINARY_DIR}/SubnetTree.py
             ${CMAKE_CURRENT_BINARY_DIR}/SubnetTree.pyc
