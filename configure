@@ -31,8 +31,7 @@ Usage: $0 [OPTION]... [VAR=VALUE]...
     --home=PATH            installs to [PATH/lib/python]
 
   Optional Features:
-    --enable-debug         compile with debugging symbols
-    --enable-release       compile with optimizations
+    --enable-debug         compile in debugging mode
 
   Influential Environment Variables (only on first invocation
   per build directory):
@@ -61,7 +60,6 @@ builddir=build
 CMakeCacheEntries=""
 append_cache_entry PY_MOD_INSTALL_DIR   PATH     $site_packages
 append_cache_entry ENABLE_DEBUG         BOOL     false
-append_cache_entry ENABLE_RELEASE       BOOL     false
 
 # parse arguments
 while [ $# -ne 0 ]; do
@@ -86,9 +84,6 @@ while [ $# -ne 0 ]; do
             ;;
         --enable-debug)
             append_cache_entry ENABLE_DEBUG         BOOL   true
-            ;;
-        --enable-release)
-            append_cache_entry ENABLE_RELEASE       BOOL   true
             ;;
         *)
             echo "Invalid option '$1'.  Try $0 --help to see available options."

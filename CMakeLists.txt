@@ -17,12 +17,10 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 project(PySubnetTree)
 
-if (ENABLE_DEBUG AND ENABLE_RELEASE)
-    set(CMAKE_BUILD_TYPE RelWithDebInfo)
-elseif (ENABLE_DEBUG AND NOT ENABLE_RELEASE)
+if (ENABLE_DEBUG)
     set(CMAKE_BUILD_TYPE Debug)
-elseif (NOT ENABLE_DEBUG AND ENABLE_RELEASE)
-    set(CMAKE_BUILD_TYPE Release)
+else ()
+    set(CMAKE_BUILD_TYPE RelWithDebInfo)
 endif ()
 
 ########################################################################
@@ -87,7 +85,6 @@ message(
     "\n"
     "\nInstall dir:       ${PY_MOD_INSTALL_DIR}"
     "\nDebug mode:        ${ENABLE_DEBUG}"
-    "\nRelease mode:      ${ENABLE_RELEASE}"
     "\n"
     "\nCC:                ${CMAKE_C_COMPILER}"
     "\nCFLAGS:            ${CMAKE_C_FLAGS} ${CMAKE_C_FLAGS_${BuildType}}"
