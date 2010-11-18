@@ -28,9 +28,19 @@ endif ()
 ########################################################################
 ## Dependency Configuration
 
-find_package(SWIG REQUIRED)
-find_package(PythonInterp REQUIRED)
-find_package(PythonLibs REQUIRED)
+include(FindRequiredPackage)
+
+FindRequiredPackage(SWIG)
+FindRequiredPackage(PythonInterp)
+FindRequiredPackage(PythonLibs)
+
+if (MISSING_PREREQS)
+    foreach (prereq ${MISSING_PREREQ_DESCS})
+        message(SEND_ERROR ${prereq})
+    endforeach ()
+    message(FATAL_ERROR "Configuration aborted due to missing prerequisites")
+endif ()
+
 include_directories(BEFORE ${PYTHON_INCLUDE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
