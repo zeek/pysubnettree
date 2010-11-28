@@ -1,16 +1,23 @@
-//	-*- AsciiDoc -*-
+..	-*- mode: rst-mode -*-
+
 PySubnetTree - A Python Module for CIDR Lookups.
 ================================================
+
+.. |today| date::
+
+Date: |today|
+
+.. contents::
 
 Overview
 --------
 
 The PySubnetTree package provides a Python data structure
-+SubnetTree+ which maps subnets given in
-http://tools.ietf.org/html/rfc4632[CIDR] notation to Python
+``SubnetTree`` which maps subnets given in
+`CIDR <http://tools.ietf.org/html/rfc4632>`_ notation to Python
 objects. Lookups are performed by longest-prefix matching. 
 
-Simple example which associates CIDR prefixes with strings:
+Simple example which associates CIDR prefixes with strings::
 
     >>> import SubnetTree
     >>> t = SubnetTree.SubnetTree()
@@ -37,14 +44,14 @@ Simple example which associates CIDR prefixes with strings:
 
 CIDR prefixes are given as strings. Single addresses can
 alternatively also be passed in as integers as, e.g., returned by
-http://docs.python.org/lib/module-socket.html#l2h-3657[+socket.inet_aton+].
+`socket.inet_aton <http://docs.python.org/lib/module-socket.html#l2h-3657>`_.
 
-A SubnetTree also provides methods +insert(prefix,object=None)+ for insertion
-of prefixes (+object+ can be skipped to use the tree like a set), and
-+remove(prefix)+ for removing entries (+remove+ performs an _exact_ match
+A SubnetTree also provides methods ``insert(prefix,object=None)`` for insertion
+of prefixes (``object`` can be skipped to use the tree like a set), and
+``remove(prefix)`` for removing entries (``remove`` performs an _exact_ match
 rather than longest-prefix). 
 
-Internally, the CIDR prefixes of a +SubnetTree+ are managed by a
+Internally, the CIDR prefixes of a ``SubnetTree`` are managed by a
 Patricia tree data structure and lookups are therefore efficient
 even for large number of prefixes.
 
@@ -53,17 +60,19 @@ PySubnetTree comes with BSD license.
 Version History
 ---------------
 
-*Version 0.12*:: Better error handling. In particular, using None as
-an index now raises an IndexError.
+:Version 0.13: Move to git repository and RestructuredText for README.
 
-*Version 0.11*:: License changed from GPL to BSD-style.
+:Version 0.12: Better error handling. In particular, using None as
+               an index now raises an IndexError.
 
-*Version 0.1*:: Initial release.
+:Version 0.11: License changed from GPL to BSD-style.
+
+:Version 0.1: Initial release.
 
 Download
 --------
 
-Download http://www.icir.org/robin/pysubnettree/pysubnettree-0.12.tar.gz[+pysubnettree-0.12.tar.gz+].
+Download `pysubnettree-0.13.tar.gz <http://www.icir.org/robin/pysubnettree/pysubnettree-0.13.tar.gz>`_.
 
 Prerequisites
 -------------
@@ -73,15 +82,6 @@ This packages requires Python 2.4 or newer.
 Installation
 ------------
 
-Installation is pretty simple:
+Installation is pretty simple::
 
    > python setup.py install
-   
-   
-   
-   
-    
-    
-
-
-
