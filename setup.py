@@ -5,7 +5,7 @@ import sys
 from distutils.core import setup, Extension
 
 setup(name="pysubnettree", 
-    version="0.12",
+    version="0.13",
     author="Robin Sommer",
     author_email="robin@icir.org",
     license="BSD",
