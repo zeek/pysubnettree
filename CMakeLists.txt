@@ -3,7 +3,7 @@ project(PySubnetTree)
 ########################################################################
 ## CMake Configuration
 
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
 # Prohibit in-source builds.
 if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
@@ -49,7 +49,13 @@ if (MISSING_PREREQS)
     message(FATAL_ERROR "Configuration aborted due to missing prerequisites")
 endif ()
 
-include_directories(BEFORE ${PYTHON_INCLUDE_DIR})
+if (PYTHON_INCLUDE_PATH)
+    # CMake 2.6 compatibility -- FindPythonLibs used to set PYTHON_INCLUDE_PATH
+    include_directories(BEFORE ${PYTHON_INCLUDE_PATH})
+else ()
+    include_directories(BEFORE ${PYTHON_INCLUDE_DIR})
+endif ()
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 ########################################################################
