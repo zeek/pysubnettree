@@ -72,7 +72,7 @@ swig_link_libraries(SubnetTree ${PYTHON_LIBRARIES})
 
 if (NOT PY_MOD_INSTALL_DIR)
     # the configure wrapper was not used, default to "home" style installation
-    set(PY_MOD_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/python)
+    set(PY_MOD_INSTALL_DIR lib/python)
 endif ()
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/SubnetTree.py
