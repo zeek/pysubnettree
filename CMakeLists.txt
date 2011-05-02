@@ -49,6 +49,18 @@ include(FindRequiredPackage)
 
 FindRequiredPackage(SWIG)
 FindRequiredPackage(PythonInterp)
+
+execute_process(COMMAND ${PYTHON_EXECUTABLE}-config --prefix
+                OUTPUT_VARIABLE PYTHON_PREFIX
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+                ERROR_QUIET
+                )
+
+if ( PYTHON_PREFIX )
+    set(CMAKE_LIBRARY_PATH ${PYTHON_PREFIX}/lib64 ${PYTHON_PREFIX}/lib ${CMAKE_LIBRARY_PATH})
+    set(CMAKE_INCLUDE_PATH ${PYTHON_PREFIX}/include ${CMAKE_INCLUDE_PATH})
+endif ()
+
 FindRequiredPackage(PythonLibs)
 
 if (MISSING_PREREQS)
