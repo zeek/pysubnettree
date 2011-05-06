@@ -4,7 +4,7 @@
 #
 # This Makefile generates the SWIG wrappers and the documentation.
 
-VERSION=0.13
+VERSION=0.14
 
 DISTFILES=LICENSE Makefile README SubnetTree.cc SubnetTree.h \
 	SubnetTree.i SubnetTree.py SubnetTree_wrap.cc patricia.c patricia.h setup.py test.py

@@ -5,8 +5,6 @@ PySubnetTree - A Python Module for CIDR Lookups.
 
 .. |today| date::
 
-Date: |today|
-
 .. contents::
 
 Overview
@@ -60,19 +58,12 @@ PySubnetTree comes with BSD license.
 Version History
 ---------------
 
-:Version 0.13: Move to git repository and RestructuredText for README.
-
-:Version 0.12: Better error handling. In particular, using None as
-               an index now raises an IndexError.
-
-:Version 0.11: License changed from GPL to BSD-style.
-
-:Version 0.1: Initial release.
+See the `CHANGES <http://www.bro-ids.org/files/release/pysubnettree/CHANGES.txt>`_  files.
 
 Download
 --------
 
-Download `pysubnettree-0.13.tar.gz <http://www.icir.org/robin/pysubnettree/pysubnettree-0.13.tar.gz>`_.
+Download `pysubnettree-0.14.tar.gz <http://www.bro-ids.org/downloads/pysubnettree-0.14.tar.gz>`_.
 
 Prerequisites
 -------------
