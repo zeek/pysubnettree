@@ -1,0 +1,9 @@
+0.13-21 | 2011-05-02 10:10:33 -0700
+
+  * CMake build setup. (Jon Siwek)
+
+  * Cleanup, and converting README to REST. (Robin Sommer)
+
+  * Initial import to git. (Robin Sommer)
+
+
