@@ -1,5 +1,3 @@
-# $Id: Makefile 6811 2009-07-06 20:41:10Z robin $
-#
 # Makefile not needed to build module. Use "python setup.py install" instead.
 #
 # This Makefile generates the SWIG wrappers and the documentation.

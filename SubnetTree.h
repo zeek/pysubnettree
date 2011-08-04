@@ -1,5 +1,3 @@
-// $Id: SubnetTree.h 6813 2009-07-07 18:54:12Z robin $
-
 extern "C" {
 #include "Python.h"
 #include "patricia.h"

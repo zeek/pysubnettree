@@ -1,5 +1,3 @@
-// $Id: SubnetTree.cc 6813 2009-07-07 18:54:12Z robin $
-
 #include <memory.h>
 #include <stdlib.h>
 #include <stdio.h>
