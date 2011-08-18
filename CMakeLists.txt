@@ -72,6 +72,18 @@ execute_process(COMMAND ${PYTHON_EXECUTABLE}-config --prefix
                 ERROR_QUIET
                 )
 
+execute_process(COMMAND ${PYTHON_EXECUTABLE}
+                -c "import sys; print \"%s.%s\" % sys.version_info[:2]"
+                OUTPUT_VARIABLE PYTHON_VERSION)
+
+if ( SWIG_VERSION VERSION_LESS 1.3.40 AND PYTHON_VERSION VERSION_GREATER 2.4 )
+    message("Found swig version: ${SWIG_VERSION}")
+    message("Found python version: ${PYTHON_VERSION}")
+    message(FATAL_ERROR "Swig versions less that 1.3.40 are incompatible with "
+                        "Python versions greater than or equal to 2.5, "
+                        "upgrading your swig installation is recommended.")
+endif ()
+
 if ( PYTHON_PREFIX )
     set(CMAKE_LIBRARY_PATH ${PYTHON_PREFIX}/lib64 ${PYTHON_PREFIX}/lib ${CMAKE_LIBRARY_PATH})
     set(CMAKE_INCLUDE_PATH ${PYTHON_PREFIX}/include ${CMAKE_INCLUDE_PATH})
