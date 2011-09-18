@@ -58,12 +58,16 @@ PySubnetTree comes with BSD license.
 Version History
 ---------------
 
-See the `CHANGES <http://www.bro-ids.org/files/release/pysubnettree/CHANGES.txt>`_  files.
+See the `CHANGES <http://git.bro-ids.org/pysubnettree.git/blob/HEAD:/CHANGES>`_  file.
 
 Download
 --------
 
-Download `pysubnettree-0.14.tar.gz <http://www.bro-ids.org/downloads/pysubnettree-0.14.tar.gz>`_.
+Download the ``pysubnettree`` git repository like::
+
+    > git clone git:/git.bro-ids.org/pysubnettree
+
+Or if you don't have git, the `latest snapshot <http://git.bro-ids.org/pysubnettree.git/snapshot/HEAD.tar.gz>`_.
 
 Prerequisites
 -------------
