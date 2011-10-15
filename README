@@ -1,21 +1,38 @@
 ..	-*- mode: rst-mode -*-
+..
+.. Version number is filled in automatically.
+.. |version| replace:: 0.15
 
-PySubnetTree - A Python Module for CIDR Lookups.
-================================================
+===============================================
+PySubnetTree - A Python Module for CIDR Lookups
+===============================================
 
-.. |today| date::
+.. class:: opening
 
-.. contents::
+    The PySubnetTree package provides a Python data structure
+    ``SubnetTree`` which maps subnets given in
+    `CIDR <http://tools.ietf.org/html/rfc4632>`_ notation to Python
+    objects. Lookups are performed by longest-prefix matching. 
 
-Overview
+
+Download
 --------
 
-The PySubnetTree package provides a Python data structure
-``SubnetTree`` which maps subnets given in
-`CIDR <http://tools.ietf.org/html/rfc4632>`_ notation to Python
-objects. Lookups are performed by longest-prefix matching. 
+You can find the latest PySubnetTree release for download at
+http://www.bro-ids.org/download.
 
-Simple example which associates CIDR prefixes with strings::
+PySubnetTree's git repository is located at `git://git.bro-ids.org/pysubnettree.git
+<git://git.bro-ids.org/pysubnettree.git>`__. You can browse the repository
+`here <http://git.bro-ids.org/pysubnettree.git>`__.
+
+This document describes PySubnetTree |version|. See the `CHANGES
+<{{git('pysubnettree:CHANGES')}}>`__ file for version history.
+
+
+Example
+-------
+
+A simple example which associates CIDR prefixes with strings::
 
     >>> import SubnetTree
     >>> t = SubnetTree.SubnetTree()
@@ -55,19 +72,6 @@ even for large number of prefixes.
 
 PySubnetTree comes with BSD license.
 
-Version History
----------------
-
-See the `CHANGES <http://git.bro-ids.org/pysubnettree.git/blob/HEAD:/CHANGES>`_  file.
-
-Download
---------
-
-Download the ``pysubnettree`` git repository like::
-
-    > git clone git:/git.bro-ids.org/pysubnettree
-
-Or if you don't have git, the `latest snapshot <http://git.bro-ids.org/pysubnettree.git/snapshot/HEAD.tar.gz>`_.
 
 Prerequisites
 -------------
