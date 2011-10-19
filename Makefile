@@ -28,3 +28,5 @@ dist:
 	@rm -rf $(BUILD)/$(TGZ)
 	@echo "Package: $(BUILD)/$(TGZ).tar.gz"
 
+distclean:
+	git reset --hard HEAD && git clean -xdf
