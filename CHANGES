@@ -1,5 +1,7 @@
 
-0.15 | 2011-10-18 10:14:39 -0700
+0.15 | 2011-10-25 17:57:26 -0700
+
+  * New make dist/distclean targets. (Jon Siwek)
 
   * Cleaning up the distribution. (Jon Siwek and Robin Sommer)
 
