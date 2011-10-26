@@ -1,4 +1,8 @@
 
+0.15-1 | 2011-10-26 10:14:00 -0500
+
+  * Compile SWIG bindings with no-strict-aliasing (closes #644) (Jon Siwek)
+
 0.15 | 2011-10-25 20:15:08 -0700
 
   * New make dist/distclean targets. (Jon Siwek)
