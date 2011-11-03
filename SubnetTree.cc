@@ -1,9 +1,9 @@
+#include "SubnetTree.h"
+
 #include <memory.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <arpa/inet.h>
-
-#include "SubnetTree.h"
 
 static PyObject* dummy = Py_BuildValue("s", "<dummy string>");
 

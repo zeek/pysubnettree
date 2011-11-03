@@ -39,7 +39,9 @@ public:
 
            PyObject* obj = self->lookup(cidr, size);
            if ( obj )
+               {
                Py_DECREF(obj);
+               }
 
            if ( obj != 0 )
                Py_RETURN_TRUE;
