@@ -9,31 +9,16 @@ include(FindRequiredPackage)
 
 FindRequiredPackage(SWIG)
 FindRequiredPackage(PythonInterp)
+FindRequiredPackage(PythonDev)
 
-execute_process(COMMAND ${PYTHON_EXECUTABLE}-config --prefix
-                OUTPUT_VARIABLE PYTHON_PREFIX
-                OUTPUT_STRIP_TRAILING_WHITESPACE
-                ERROR_QUIET
-                )
-
-execute_process(COMMAND ${PYTHON_EXECUTABLE}
-                -c "import sys; print \"%s.%s\" % sys.version_info[:2]"
-                OUTPUT_VARIABLE PYTHON_VERSION)
-
-if ( SWIG_VERSION VERSION_LESS 1.3.30 AND PYTHON_VERSION VERSION_GREATER 2.4 )
+if ( SWIG_VERSION VERSION_LESS 1.3.30 AND
+     PYTHON_VERSION_STRING VERSION_GREATER 2.4 )
     message("Found swig version: ${SWIG_VERSION}")
-    message("Found python version: ${PYTHON_VERSION}")
+    message("Found python version: ${PYTHON_VERSION_STRING}")
     message(FATAL_ERROR "Swig versions less that 1.3.30 are incompatible with "
                         "Python versions greater than or equal to 2.5, "
                         "upgrading your swig installation is recommended.")
 endif ()
-
-if ( PYTHON_PREFIX )
-    set(CMAKE_LIBRARY_PATH ${PYTHON_PREFIX}/lib64 ${PYTHON_PREFIX}/lib ${CMAKE_LIBRARY_PATH})
-    set(CMAKE_INCLUDE_PATH ${PYTHON_PREFIX}/include ${CMAKE_INCLUDE_PATH})
-endif ()
-
-FindRequiredPackage(PythonLibs)
 
 if (MISSING_PREREQS)
     foreach (prereq ${MISSING_PREREQ_DESCS})
@@ -42,13 +27,7 @@ if (MISSING_PREREQS)
     message(FATAL_ERROR "Configuration aborted due to missing prerequisites")
 endif ()
 
-if (PYTHON_INCLUDE_PATH)
-    # CMake 2.6 compatibility -- FindPythonLibs used to set PYTHON_INCLUDE_PATH
-    include_directories(BEFORE ${PYTHON_INCLUDE_PATH})
-else ()
-    include_directories(BEFORE ${PYTHON_INCLUDE_DIR})
-endif ()
-
+include_directories(BEFORE ${PYTHON_INCLUDE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 ########################################################################
