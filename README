@@ -7,7 +7,7 @@
 PySubnetTree - A Python Module for CIDR Lookups
 ===============================================
 
-.. class:: opening
+.. rst-class:: opening
 
     The PySubnetTree package provides a Python data structure
     ``SubnetTree`` which maps subnets given in
@@ -25,8 +25,8 @@ PySubnetTree's git repository is located at `git://git.bro-ids.org/pysubnettree.
 <git://git.bro-ids.org/pysubnettree.git>`__. You can browse the repository
 `here <http://git.bro-ids.org/pysubnettree.git>`__.
 
-This document describes PySubnetTree |version|. See the `CHANGES
-<{{git('pysubnettree:CHANGES')}}>`__ file for version history.
+This document describes PySubnetTree |version|. See the ``CHANGES``
+file for version history.
 
 
 Example
