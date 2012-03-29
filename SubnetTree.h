@@ -10,20 +10,28 @@ extern "C" {
 %apply (char *STRING, int LENGTH) { (char *cidr, int size) };
 #endif
 
+typedef union _inx_addr {
+        struct in_addr sin;
+        struct in6_addr sin6;
+} inx_addr;
+
 class SubnetTree
 {
 public:
-   SubnetTree();
+   SubnetTree(bool binary_lookup_mode = false);
    ~SubnetTree();
 
-   bool insert(const char *cidr, PyObject* data = 0);
-   bool insert(unsigned long subnet, unsigned short mask, PyObject* data = 0);
+   PyObject* insert(const char *cidr, PyObject* data = 0);
+   PyObject* insert(unsigned long subnet, unsigned short mask, PyObject* data = 0);
 
-   bool remove(const char *cidr);
-   bool remove(unsigned long subnet, unsigned short mask);
+   PyObject* remove(const char *cidr);
+   PyObject* remove(unsigned long subnet, unsigned short mask);
 
    PyObject* lookup(const char *cidr, int size) const;
    PyObject* lookup(unsigned long addr) const;
+
+   bool binary_lookup_mode();
+   void set_binary_lookup_mode(bool binary_lookup_mode = true);
 
 #ifndef SWIG   
    bool operator[](const char* addr) const { return lookup(addr, strlen(addr)); }
@@ -43,15 +51,30 @@ public:
                Py_DECREF(obj);
                }
 
+           if (PyErr_Occurred()) {
+               return 0;
+           }
+           
            if ( obj != 0 )
                Py_RETURN_TRUE;
            else
                Py_RETURN_FALSE;
        }
 
-       bool __contains__(unsigned long addr) 
+       PyObject* __contains__(unsigned long addr) 
        {
-           return self->lookup(addr);
+           PyObject* obj = self->lookup(addr);
+           if ( obj )
+               Py_DECREF(obj);
+           
+           if (PyErr_Occurred()) {
+               return 0;
+           }
+           
+           if ( obj != 0 )
+               Py_RETURN_TRUE;
+           else
+               Py_RETURN_FALSE;
        }
 
        PyObject* __getitem__(char *cidr, int size) 
@@ -77,12 +100,13 @@ public:
                return 0; 
            }
 
-           if ( ! self->insert(cidr, data) ) {
-               PyErr_SetString(PyExc_IndexError, "cannot insert network");
+           if ( self->insert(cidr, data) ) {
+               Py_RETURN_TRUE;
+           } else {
                return 0;
            }
 
-           return PyInt_FromLong(1);
+           Py_RETURN_TRUE;
        }
 
        PyObject* __delitem__(const char* cidr) 
@@ -92,12 +116,12 @@ public:
                return 0; 
            }
 
-           if ( ! self->remove(cidr) ) {
-               PyErr_SetString(PyExc_IndexError, "cannot remove network");
+           if ( self->remove(cidr) ) {
+               Py_RETURN_TRUE;
+           } else {
                return 0;
            }
 
-           return PyInt_FromLong(1);
        }
 
    }
@@ -105,5 +129,9 @@ public:
 
 private:
    patricia_tree_t* tree;
+   bool _binary_lookup_mode;
+   PyObject* insert(int family, inx_addr subnet, unsigned short mask, PyObject * data);
+   PyObject* remove(int family, inx_addr subnet, unsigned short mask);
+   PyObject* lookup(int family, inx_addr subnet) const;
 
 };

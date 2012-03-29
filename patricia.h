@@ -81,9 +81,7 @@ typedef struct _prefix_t {
     int ref_count;		/* reference count */
     union {
 		struct in_addr sin;
-#ifdef HAVE_IPV6
 		struct in6_addr sin6;
-#endif /* IPV6 */
     } add;
 } prefix_t;
 
