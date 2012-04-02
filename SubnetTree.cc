@@ -22,7 +22,6 @@ inline static prefix_t* make_prefix(int family, inx_addr * addr, unsigned int wi
         }
 
         prefix_t* subnet = new prefix_t;
-        // bug: rval of new not checked?
 
         if (family == AF_INET) {
                 memcpy(&subnet->add.sin, addr, sizeof(subnet->add.sin)) ;
@@ -37,14 +36,13 @@ inline static prefix_t* make_prefix(int family, inx_addr * addr, unsigned int wi
         return subnet;
         }
 
-/* this function intentionally writes crap all over family, subnet, mask if you
- * give it bad input. */
 inline static bool parse_cidr(const char *cidr, int *family, inx_addr *subnet, unsigned short *mask)
 {
     // bug fixed? removed static keyword - broke threading
     char buffer[40];
     const char *addr_str = 0;
     const char *mask_str = 0;
+    char *endptr;
 
     if ( ! cidr )
         return false;
@@ -71,8 +69,9 @@ inline static bool parse_cidr(const char *cidr, int *family, inx_addr *subnet, u
     }
 
     if (mask_str) {
-        *mask = strtol(mask_str, 0, 10);
-        if (*mask == 0 && errno == EINVAL) {
+        errno = 0;
+        *mask = strtol(mask_str, &endptr, 10);
+        if (endptr == mask_str || errno != 0) {
             return false;
         }
     } else {

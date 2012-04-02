@@ -11,8 +11,9 @@ PySubnetTree - A Python Module for CIDR Lookups
 
     The PySubnetTree package provides a Python data structure
     ``SubnetTree`` which maps subnets given in
-    `CIDR <http://tools.ietf.org/html/rfc4632>`_ notation to Python
-    objects. Lookups are performed by longest-prefix matching. 
+    `CIDR <http://tools.ietf.org/html/rfc4632>`_ notation (IPv6 is
+    also supported) to Python objects. Lookups are performed by
+    longest-prefix matching. 
 
 
 Download
@@ -55,11 +56,20 @@ A simple example which associates CIDR prefixes with strings::
       File "SubnetTree.py", line 67, in __getitem__
         def __getitem__(*args): return _SubnetTree.SubnetTree___getitem__(*args)
     KeyError: '10.20.1.1'
+    >>> t.binary_lookup_mode()
+    False
+    >>> t.set_binary_lookup_mode(True)
+    >>> t.binary_lookup_mode()
+    True
+    >>> import socket
+    >>> print t[socket.inet_aton("10.1.42.1")]
+    Network 1, Subnet 42
 
 
-CIDR prefixes are given as strings. Single addresses can
-alternatively also be passed in as integers as, e.g., returned by
-`socket.inet_aton <http://docs.python.org/lib/module-socket.html#l2h-3657>`_.
+CIDR prefixes and IP addresses are given as strings. Single addresses can
+alternatively be passed in as packed binary strings as, e.g., returned by
+`socket.inet_aton <http://docs.python.org/lib/module-socket.html#l2h-3657>`_,
+but only when in binary lookup mode (as shown in the example).
 
 A SubnetTree also provides methods ``insert(prefix,object=None)`` for insertion
 of prefixes (``object`` can be skipped to use the tree like a set), and
