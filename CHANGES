@@ -1,4 +1,17 @@
 
+0.17-8 | 2012-04-09 15:36:47 -0700
+
+  * pysubnettree now supports IPv6 addresses and prefixes. (Henry
+    Stern, updated by Daniel Thayer). 
+
+  * SubnetTree now have a binary mode as well in in which single
+    addresses are passed in the form of packed binary strings as,
+    e.g., returned by `socket.inet_aton. (Henry Stern, updated by
+    Daniel Thayer).
+
+  * Raise minimum required CMake version to 2.6.3 (Jon Siwek)
+
+
 0.17 | 2012-01-09 16:11:02 -0800
 
   * Submodule README conformity changes. (Jon Siwek)

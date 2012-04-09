@@ -1,7 +1,7 @@
 ..	-*- mode: rst-mode -*-
 ..
 .. Version number is filled in automatically.
-.. |version| replace:: 0.17
+.. |version| replace:: 0.17-8
 
 ===============================================
 PySubnetTree - A Python Module for CIDR Lookups
@@ -10,9 +10,10 @@ PySubnetTree - A Python Module for CIDR Lookups
 .. rst-class:: opening
 
     The PySubnetTree package provides a Python data structure
-    ``SubnetTree`` which maps subnets given in
-    `CIDR <http://tools.ietf.org/html/rfc4632>`_ notation to Python
-    objects. Lookups are performed by longest-prefix matching. 
+    ``SubnetTree`` which maps subnets given in `CIDR
+    <http://tools.ietf.org/html/rfc4632>`_ notation (incl.
+    corresponding IPv6 versions) to Python objects. Lookups are
+    performed by longest-prefix matching.
 
 
 Download
@@ -56,15 +57,26 @@ A simple example which associates CIDR prefixes with strings::
         def __getitem__(*args): return _SubnetTree.SubnetTree___getitem__(*args)
     KeyError: '10.20.1.1'
 
+By default, CIDR prefixes and IP addresses are given as strings.
+Alternatively, a ``SubnetTree`` object can be switched into *binary
+mode*, in which single addresses are passed in the form of packed
+binary strings as, e.g., returned by `socket.inet_aton
+<http://docs.python.org/lib/module-socket.html#l2h-3657>`_::
 
-CIDR prefixes are given as strings. Single addresses can
-alternatively also be passed in as integers as, e.g., returned by
-`socket.inet_aton <http://docs.python.org/lib/module-socket.html#l2h-3657>`_.
+
+    >>> t.get_binary_lookup_mode()
+    False
+    >>> t.set_binary_lookup_mode(True)
+    >>> t.binary_lookup_mode()
+    True
+    >>> import socket
+    >>> print t[socket.inet_aton("10.1.42.1")]
+    Network 1, Subnet 42
 
 A SubnetTree also provides methods ``insert(prefix,object=None)`` for insertion
 of prefixes (``object`` can be skipped to use the tree like a set), and
 ``remove(prefix)`` for removing entries (``remove`` performs an _exact_ match
-rather than longest-prefix). 
+rather than longest-prefix).
 
 Internally, the CIDR prefixes of a ``SubnetTree`` are managed by a
 Patricia tree data structure and lookups are therefore efficient

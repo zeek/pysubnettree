@@ -1,6 +1,10 @@
 #! /usr/bin/env python
 
 import sys
+import os
+
+cflags = os.environ.get("CFLAGS", "")
+os.environ["CFLAGS"] = cflags + " -fno-strict-aliasing"
 
 from distutils.core import setup, Extension
 
