@@ -80,15 +80,15 @@ rather than longest-prefix).
 
 Internally, the CIDR prefixes of a ``SubnetTree`` are managed by a
 Patricia tree data structure and lookups are therefore efficient
-even for large number of prefixes.
+even with a large number of prefixes.
 
-PySubnetTree comes with BSD license.
+PySubnetTree comes with a BSD license.
 
 
 Prerequisites
 -------------
 
-This packages requires Python 2.4 or newer.
+This package requires Python 2.4 or newer.
 
 Installation
 ------------
