@@ -15,7 +15,7 @@ if ( SWIG_VERSION VERSION_LESS 1.3.30 AND
      PYTHON_VERSION_STRING VERSION_GREATER 2.4 )
     message("Found swig version: ${SWIG_VERSION}")
     message("Found python version: ${PYTHON_VERSION_STRING}")
-    message(FATAL_ERROR "Swig versions less that 1.3.30 are incompatible with "
+    message(FATAL_ERROR "Swig versions less than 1.3.30 are incompatible with "
                         "Python versions greater than or equal to 2.5, "
                         "upgrading your swig installation is recommended.")
 endif ()
