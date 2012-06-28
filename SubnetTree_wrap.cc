@@ -3383,7 +3383,9 @@ SWIGINTERN PyObject *SubnetTree___contains____SWIG_1(SubnetTree *self,unsigned l
            PyObject* obj = self->lookup(addr);
 
            if ( obj )
+               {
                Py_DECREF(obj);
+               }
 
            if ( PyErr_Occurred() )
                return 0;
@@ -3415,7 +3417,7 @@ SWIGINTERN PyObject *SubnetTree___setitem__(SubnetTree *self,char const *cidr,Py
 
            if ( self->insert(cidr, data) )
                Py_RETURN_TRUE;
-	       else
+           else
                return 0;
        }
 SWIGINTERN PyObject *SubnetTree___delitem__(SubnetTree *self,char const *cidr){

@@ -103,7 +103,7 @@ public:
 
            if ( self->insert(cidr, data) )
                Py_RETURN_TRUE;
-	       else
+           else
                return 0;
        }
 
