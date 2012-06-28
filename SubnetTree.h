@@ -65,7 +65,9 @@ public:
            PyObject* obj = self->lookup(addr);
 
            if ( obj )
+               {
                Py_DECREF(obj);
+               }
 
            if ( PyErr_Occurred() )
                return 0;
