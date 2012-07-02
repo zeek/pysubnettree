@@ -36,10 +36,11 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include(UseSWIG)
 
 set_source_files_properties(SubnetTree.i PROPERTIES CPLUSPLUS true)
+set(SWIG_MODULE_SubnetTree_EXTRA_DEPS SubnetTree.h)
 swig_add_module(SubnetTree python SubnetTree.i SubnetTree.cc patricia.c)
 swig_link_libraries(SubnetTree ${PYTHON_LIBRARIES})
-set_source_files_properties(${swig_generated_file_fullname} PROPERTIES
-                            COMPILE_FLAGS -fno-strict-aliasing)
+set_source_files_properties(${swig_generated_file_fullname} SubnetTree.cc
+                            PROPERTIES COMPILE_FLAGS -fno-strict-aliasing)
 
 ########################################################################
 ## Install Files

@@ -153,7 +153,7 @@ PyObject* SubnetTree::remove(const char *cidr)
 }
 
 PyObject* SubnetTree::remove(unsigned long addr, unsigned short mask)
-{                                      /*  */
+{
     inx_addr subnet_addr;
     memcpy(&subnet_addr, &addr, sizeof(addr));
 
