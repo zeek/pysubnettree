@@ -11,7 +11,8 @@ FindRequiredPackage(SWIG)
 FindRequiredPackage(PythonInterp)
 FindRequiredPackage(PythonDev)
 
-if ( SWIG_VERSION VERSION_LESS 1.3.30 AND
+if ( SWIG_VERSION AND PYTHON_VERSION_STRING AND
+     SWIG_VERSION VERSION_LESS 1.3.30 AND
      PYTHON_VERSION_STRING VERSION_GREATER 2.4 )
     message("Found swig version: ${SWIG_VERSION}")
     message("Found python version: ${PYTHON_VERSION_STRING}")
