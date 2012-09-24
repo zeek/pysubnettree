@@ -85,6 +85,11 @@ inline static bool parse_cidr(const char *cidr, int *family, inx_addr *subnet, u
     return true;
 }
 
+static void free_data(void *data)
+{
+    Py_DECREF(data);
+}
+
 SubnetTree::SubnetTree(bool arg_binary_lookup_mode)
 {
     tree = New_Patricia(128);
@@ -93,7 +98,7 @@ SubnetTree::SubnetTree(bool arg_binary_lookup_mode)
 
 SubnetTree::~SubnetTree()
 {
-    Destroy_Patricia(tree, 0);
+    Destroy_Patricia(tree, (void (*)())free_data);
 }
 
 PyObject* SubnetTree::insert(const char *cidr, PyObject* data)

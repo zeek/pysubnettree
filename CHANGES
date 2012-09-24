@@ -1,4 +1,9 @@
 
+0.19-1 | 2012-09-24 16:11:13 -0700
+
+  * Fixing memory leak. When deleting a PySubnetTree, the values
+    weren't unref'ed. (Simon Arlott)
+
 0.19 | 2012-08-01 13:57:31 -0500
 
   * Fix configure script to exit with non-zero status on error (Jon Siwek)
