@@ -87,7 +87,7 @@ inline static bool parse_cidr(const char *cidr, int *family, inx_addr *subnet, u
 
 static void free_data(void *data)
 {
-    Py_DECREF(data);
+    Py_DECREF(static_cast<PyObject*>(data));
 }
 
 SubnetTree::SubnetTree(bool arg_binary_lookup_mode)
