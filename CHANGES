@@ -1,4 +1,9 @@
 
+0.19-3 | 2012-09-29 14:10:39 -0700
+
+  * Fix compile error with Python C API. Addresses #887. (Matthias
+    Vallentin)
+
 0.19-1 | 2012-09-24 16:11:13 -0700
 
   * Fixing memory leak. When deleting a PySubnetTree, the values
