@@ -61,7 +61,7 @@ By default, CIDR prefixes and IP addresses are given as strings.
 Alternatively, a ``SubnetTree`` object can be switched into *binary
 mode*, in which single addresses are passed in the form of packed
 binary strings as, e.g., returned by `socket.inet_aton
-<http://docs.python.org/lib/module-socket.html#l2h-3657>`_::
+<http://docs.python.org/2/library/socket.html#socket.inet_aton>`_::
 
 
     >>> t.get_binary_lookup_mode()
