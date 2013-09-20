@@ -1,4 +1,10 @@
 
+0.20 | 2013-09-12 15:55:16 -0500
+
+  * Fix a broken link in the documentation. (Daniel Thayer)
+
+  * Switching to relative submodule paths. (Robin Sommer)
+
 0.19-9 | 2013-03-08 09:19:54 -0800
 
   * Fix a compiler warning. (John Siwek)
