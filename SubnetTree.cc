@@ -20,7 +20,10 @@ inline static prefix_t* make_prefix(int family, inx_addr * addr, unsigned int wi
     if ( family == AF_INET6 && width > 128 )
         return 0;
 
-    prefix_t* subnet = new prefix_t;
+    prefix_t* subnet = (prefix_t*) malloc(sizeof(prefix_t));
+
+	if ( ! subnet )
+		return 0;
 
     if ( family == AF_INET )
         memcpy(&subnet->add.sin, addr, sizeof(subnet->add.sin));
