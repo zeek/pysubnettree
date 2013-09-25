@@ -87,7 +87,7 @@ public:
 
            PyObject* data = self->lookup(cidr, size);
            if ( ! data ) {
-               PyErr_SetString(PyExc_KeyError, cidr ? cidr : "None");
+               PyErr_SetString(PyExc_KeyError, cidr);
                return 0;
            }
 
