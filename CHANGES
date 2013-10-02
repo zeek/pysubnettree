@@ -1,4 +1,10 @@
 
+0.20-3 | 2013-10-02 10:40:58 -0700
+
+  * Remove dead code. (Jon Siwek)
+
+  * Fix allocator/deallocator mismatch. (Jon Siwek)
+
 0.20 | 2013-09-23 11:53:17 -0700
 
   * Fix an error in README and improve the examples (Daniel Thayer)
