@@ -1,5 +1,8 @@
 
-0.20-3 | 2013-10-02 10:40:58 -0700
+0.21 | 2013-10-14 09:46:34 -0700
+
+  * Fixing version number in setup.cfg. Addresses BIT-1088. (Robin
+    Sommer)
 
   * Remove dead code. (Jon Siwek)
 
