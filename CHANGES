@@ -1,4 +1,8 @@
 
+0.22 | 2013-10-14 09:47:15 -0700
+
+  * Release.
+
 0.21 | 2013-10-14 09:46:34 -0700
 
   * Fixing version number in setup.cfg. Addresses BIT-1088. (Robin
