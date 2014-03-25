@@ -19,14 +19,14 @@ SubnetTree_wrap.cpp SubnetTree.py: SubnetTree.i SubnetTree.h
 clean:
 	rm -rf $(CLEAN)
 
+.PHONY: dist
 dist:
-	@install -d $(BUILD)
-	@rm -rf $(BUILD)/$(TGZ)
-	@mkdir $(BUILD)/$(TGZ)
-	@cp -rp $(DISTFILES) $(BUILD)/$(TGZ)
-	cd $(BUILD) && tar czvf $(TGZ).tgz $(TGZ)
-	@rm -rf $(BUILD)/$(TGZ)
-	@echo "Package: $(BUILD)/$(TGZ).tgz"
+	@python setup.py sdist
 
 distclean:
-	rm -rf $(BUILD)
+	rm -rf pysubnettree.egg-info
+	rm -rf dist
+	rm -rf build
+
+upload:
+	python setup.py sdist upload --sign --identity F8CB8019

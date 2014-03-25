@@ -1,4 +1,9 @@
 
+0.23 | 2014-03-31 18:05:31 -0700
+
+  * Updated setup.py to work with setuptools. Uploaded to PyPI. (Henry
+    Stern/Robin Sommer)
+
 0.22 | 2013-10-14 09:47:15 -0700
 
   * Release.
