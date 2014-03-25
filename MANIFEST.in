@@ -1,0 +1,7 @@
+include COPYING
+include CHANGES
+include Makefile
+include VERSION
+include patricia.h
+include SubnetTree.h
+include test.py

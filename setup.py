@@ -6,7 +6,8 @@ import os
 cflags = os.environ.get("CFLAGS", "")
 os.environ["CFLAGS"] = cflags + " -fno-strict-aliasing"
 
-from distutils.core import setup, Extension
+from setuptools import setup
+from distutils.core import Extension
 
 setup(name="pysubnettree",
     version="0.22", # Filled in automatically.
@@ -14,7 +15,9 @@ setup(name="pysubnettree",
     license="BSD",
     py_modules=['SubnetTree'],
     ext_modules = [
-        Extension("_SubnetTree", ["SubnetTree.cc", "patricia.c", "SubnetTree_wrap.cc"]),
+        Extension("_SubnetTree",
+            sources=["SubnetTree.cc", "patricia.c", "SubnetTree_wrap.cc"],
+            depends=["SubnetTree.h", "patricia.h"]),
         ]
 )
 
