@@ -1,4 +1,8 @@
 
+0.23 | 2014-04-03 15:53:51 -0700
+
+  * Release 0.23.
+
 0.23 | 2014-03-31 18:05:31 -0700
 
   * Updated setup.py to work with setuptools. Uploaded to PyPI. (Henry
