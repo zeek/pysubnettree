@@ -21,6 +21,27 @@ def unpack(x):
     return struct.unpack("I", x)[0]
 
 ###############################################
+# Tests IPv4 mapped addrs.
+
+t0 = SubnetTree.SubnetTree()
+t0["::ffff:0:0/96"] = "IPv4-mapped addrs"
+t0["1:2:3:4::/64"] = "an IPv6 prefix";
+
+testcase(t0["1.2.3.4"] == "IPv4-mapped addrs", "IPv4 uses mapped prefix")
+testcase(t0["1:2:3:4:5::"] == "an IPv6 prefix", "v6 doesn't match v4 prefix")
+testcase("6:7:8:9::" not in t0, "v6 prefix didn't match")
+
+t0.remove("::ffff:0:0/96")
+t0.remove("1:2:3:4::/64")
+
+t0.insert("0.0.0.0/8")
+testcase("127.0.0.1" not in t0, "loopback didn't match")
+testcase("0.1.2.3" in t0, "first IPv4 octet of IPv4 was zero")
+testcase("1:2:3:4::5" not in t0, "first IPv4 octet of IPv6 not zero")
+testcase("::ffff:197.44.42.34" not in t0, "first v4 octet of mapped-v4 not 0")
+testcase("::ffff:0.44.42.34" in t0, "first v4 octet of mapped-v4 is 0")
+
+###############################################
 # Tests when binary mode is not set initially
 t1 = SubnetTree.SubnetTree()
 
@@ -30,7 +51,6 @@ t1.insert("1:2:3:4::/64")
 t1.insert("1:2:3:7::/64", "Network 1:2, subnet 1:2:3:7")
 t1.insert("1:2::/32", "Network 1:2")
 t1["2:3::/32"] = "Network 2:3"
-t1["::ffff:0:0/96"] = "IPv4-mapped addrs"
 
 testcase(not t1.get_binary_lookup_mode(), "Verify that binary lookup mode is not set")
 
