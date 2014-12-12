@@ -9,6 +9,10 @@
 
 static PyObject* dummy = Py_BuildValue("s", "<dummy string>");
 
+const uint8_t v4_mapped_prefix[12] = { 0, 0, 0, 0,
+                                       0, 0, 0, 0,
+                                       0, 0, 0xff, 0xff };
+
 inline static prefix_t* make_prefix(int family, inx_addr * addr, unsigned int width)
 {
     if ( ! (family == AF_INET || family == AF_INET6) )
@@ -26,13 +30,16 @@ inline static prefix_t* make_prefix(int family, inx_addr * addr, unsigned int wi
 		return 0;
 
     if ( family == AF_INET )
-        memcpy(&subnet->add.sin, addr, sizeof(subnet->add.sin));
+        {
+        memcpy(&subnet->add.sin6, v4_mapped_prefix, sizeof(v4_mapped_prefix));
+        memcpy(&subnet->add.sin6.s6_addr[12], addr, sizeof(in_addr));
+        }
 
     else if ( family == AF_INET6 )
         memcpy(&subnet->add.sin6, addr, sizeof(subnet->add.sin6));
 
-    subnet->family = family;
-    subnet->bitlen = width;
+    subnet->family = AF_INET6;
+    subnet->bitlen = (family == AF_INET ? width + 96 : width);
     subnet->ref_count = 1;
 
     return subnet;

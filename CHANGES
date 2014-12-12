@@ -1,4 +1,13 @@
 
+0.23-12 | 2014-12-12 10:44:38 -0800
+
+  * Use IPv6 as canonical storage format (IPv4 -> IPv4-mapped IPv6).
+    Addresses GitHub issues #4 and maybe #5. (Jon Siwek)
+
+  * Update MANIFEST.in. Include SubnetTree.i in the distribution so
+    the swig file (SubnetTree.cc) can be regenerated with the tarball
+    if needed. . (Scott Kitterman)
+
 0.23 | 2014-04-03 15:53:51 -0700
 
   * Release 0.23.
