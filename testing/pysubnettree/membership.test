@@ -1,0 +1,45 @@
+# Test that membership test operators ("in"/"not in") return expected result.
+#
+# @TEST-EXEC: python %INPUT
+
+from testsetup import testcase, ipv4binary, ipv6binary
+import SubnetTree
+
+def ipv4_func(ipstr):
+    return ipstr
+
+def ipv6_func(ipstr):
+    return ipstr
+
+def do_tests(binarymode):
+    if binarymode:
+        v4 = ipv4binary
+        v6 = ipv6binary
+    else:
+        v4 = ipv4_func
+        v6 = ipv6_func
+
+    t = SubnetTree.SubnetTree(binarymode)
+
+    # Test with no elements
+    testcase(v4("10.0.2.3") not in t, "lookup should fail")
+
+    # Test with inserting by assignment
+    t["10.0.0.0/16"] = "Ten/16"
+    testcase(v4("10.0.2.3") in t, "lookup should succeed")
+    testcase(v4("10.1.2.3") not in t, "lookup should fail")
+
+    # Test with inserting using insert() method with an object specified
+    t.insert("10.0.0.0/8", "Ten/8")
+    testcase(v4("10.1.2.3") in t, "lookup should succeed")
+    testcase(v4("0.1.2.3") not in t, "lookup should fail")
+
+    # Test with inserting using insert() method without an object
+    t.insert("12.1.0.0/16")
+    testcase(v4("12.1.2.3") in t, "lookup should succeed")
+    testcase(v4("12.0.2.3") not in t, "lookup should fail")
+
+
+do_tests(False)
+do_tests(True)
+

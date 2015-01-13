@@ -1,0 +1,16 @@
+# Test that get_binary_lookup_mode() returns expected result.
+#
+# @TEST-EXEC: python %INPUT
+
+from testsetup import testcase
+import SubnetTree
+
+t = SubnetTree.SubnetTree()
+testcase(not t.get_binary_lookup_mode(), "binary lookup mode should be False")
+
+t = SubnetTree.SubnetTree(False)
+testcase(not t.get_binary_lookup_mode(), "binary lookup mode should be False")
+
+t = SubnetTree.SubnetTree(True)
+testcase(t.get_binary_lookup_mode(), "binary lookup mode should be True")
+

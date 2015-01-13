@@ -30,3 +30,7 @@ distclean:
 
 upload:
 	python setup.py sdist upload --sign --identity F8CB8019
+
+.PHONY : test
+test:
+	@make -C testing
