@@ -14,7 +14,7 @@ def testcase(passfail, str):
     else:
         result = "FAILED"
         numerr += 1
-    print "%s ... %s" % (str, result)
+    print("%s ... %s" % (str, result))
 
 
 def unpack(x):
@@ -225,7 +225,7 @@ testcase("1::5" not in t3, "4-character IPv6 text string")
 
 # Output summary of results
 if numerr:
-    print "There were %d failures." % numerr
+    print("There were %d failures." % numerr)
 else:
-    print "All test cases passed."
+    print("All test cases passed.")
 
