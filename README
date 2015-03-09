@@ -39,18 +39,18 @@ A simple example which associates CIDR prefixes with strings::
     >>> t = SubnetTree.SubnetTree()
     >>> t["10.1.0.0/16"] = "Network 1"
     >>> t["10.1.42.0/24"] = "Network 1, Subnet 42"
-    >>> print "10.1.42.1" in t
+    >>> print("10.1.42.1" in t)
     True
-    >>> print t["10.1.42.1"]
+    >>> print(t["10.1.42.1"])
     Network 1, Subnet 42
-    >>> print t["10.1.43.1"]
+    >>> print(t["10.1.43.1"])
     Network 1
-    >>> print "10.20.1.1" in t
+    >>> print("10.20.1.1" in t)
     False
     >>> try:
-    ...     print t["10.20.1.1"]
+    ...     print(t["10.20.1.1"])
     ... except KeyError, err:
-    ...     print "Error: %s not found" % err
+    ...     print("Error: %s not found" % err)
     Error: '10.20.1.1' not found
 
 By default, CIDR prefixes and IP addresses are given as strings.
@@ -66,7 +66,7 @@ binary strings as, e.g., returned by `socket.inet_aton
     >>> t.get_binary_lookup_mode()
     True
     >>> import socket
-    >>> print t[socket.inet_aton("10.1.42.1")]
+    >>> print(t[socket.inet_aton("10.1.42.1")])
     Network 1, Subnet 42
 
 A SubnetTree also provides methods ``insert(prefix,object=None)`` for insertion
