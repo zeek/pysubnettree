@@ -1,4 +1,8 @@
 
+0.23-18 | 2015-03-17 09:27:14 -0700
+
+  * Python 3 compatibility fixes. (Jon Siwek)
+
 0.23-12 | 2014-12-12 10:44:38 -0800
 
   * Use IPv6 as canonical storage format (IPv4 -> IPv4-mapped IPv6).

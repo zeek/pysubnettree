@@ -7,7 +7,48 @@ extern "C" {
 // If a function is supposed to accept 4-byte tuples as packet by
 // socket.inet_aton(), it needs to accept strings which contain 0s.
 // Therefore, we need a size parameter.
-%apply (char *STRING, int LENGTH) { (char *cidr, int size) };
+%typemap(in) (char* cidr, int size)
+	%{
+	Py_ssize_t len;
+#if PY_MAJOR_VERSION >= 3
+	if ( PyUnicode_Check($input) )
+		{
+		PyObject* ascii = PyUnicode_AsASCIIString($input);
+		PyBytes_AsStringAndSize(ascii, &$1, &len);
+		$2 = len;
+		Py_DECREF(ascii);
+		}
+	else if ( PyBytes_Check($input) )
+		{
+		PyBytes_AsStringAndSize($input, &$1, &len);
+		$2 = len;
+		}
+	else
+		{
+		PyErr_SetString(PyExc_TypeError, "Expected a string or bytes");
+		return NULL;
+		}
+#else
+	if ( ! PyString_Check($input) )
+		{
+		PyErr_SetString(PyExc_TypeError, "Expected a string or bytes");
+		return NULL;
+		}
+	else
+		{
+		PyString_AsStringAndSize($input, &$1, &len);
+		$2 = len;
+		}
+#endif
+	%}
+
+%typecheck(SWIG_TYPECHECK_STRING) (char* cidr, int size)
+	{
+	// The typemap above will check types and throw a type error when
+	// needed, so just let everything through.
+	$1 = 1;
+	}
+
 #endif
 
 typedef union _inx_addr {
