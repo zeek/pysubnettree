@@ -1,7 +1,7 @@
 ..	-*- mode: rst-mode -*-
 ..
 .. Version number is filled in automatically.
-.. |version| replace:: 0.23-18
+.. |version| replace:: 0.23-19
 
 ===============================================
 PySubnetTree - A Python Module for CIDR Lookups
@@ -52,6 +52,19 @@ A simple example which associates CIDR prefixes with strings::
     ... except KeyError, err:
     ...     print("Error: %s not found" % err)
     Error: '10.20.1.1' not found
+
+
+PySubnetTree also supports IPv6 addresses and prefixes::
+
+    >>> import SubnetTree
+    >>> t = SubnetTree.SubnetTree()
+    >>> t["2001:db8::/32"] = "Company 1"
+    >>> t["2001:db8:4000::/48"] = "Company 1, Site 1"
+    >>> t["2001:db8:4000:abcd::"]
+    Company 1, Site 1
+    >>> t["2001:db8:fe:1234::"]
+    Company 1
+
 
 By default, CIDR prefixes and IP addresses are given as strings.
 Alternatively, a ``SubnetTree`` object can be switched into *binary

@@ -1,4 +1,8 @@
 
+0.23-19 | 2015-03-23 09:36:00 -0500
+
+  * Add IPv6 example in the docs (David Salisbury)
+
 0.23-18 | 2015-03-17 09:27:14 -0700
 
   * Python 3 compatibility fixes. (Jon Siwek)
