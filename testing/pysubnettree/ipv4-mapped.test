@@ -1,0 +1,24 @@
+# Tests using IPv4-mapped IPv6 addresses.
+#
+# @TEST-EXEC: python %INPUT
+
+from testsetup import testcase
+import SubnetTree
+
+t = SubnetTree.SubnetTree()
+t.insert("::ffff:0:0/96", "IPv4-mapped addrs")
+t.insert("1:2:3:4::/64", "an IPv6 prefix")
+
+testcase(t["1.2.3.4"] == "IPv4-mapped addrs", "IPv4 uses mapped prefix")
+testcase(t["1:2:3:4:5::"] == "an IPv6 prefix", "v6 shouldn't match v4 prefix")
+testcase("6:7:8:9::" not in t, "v6 prefix shouldn't match")
+
+t = SubnetTree.SubnetTree()
+t.insert("0.0.0.0/8")
+
+testcase("127.0.0.1" not in t, "loopback shouldn't match")
+testcase("0.1.2.3" in t, "first IPv4 octet of IPv4 is zero")
+testcase("1:2:3:4::5" not in t, "first IPv4 octet of IPv6 not zero")
+testcase("::ffff:197.44.42.34" not in t, "first v4 octet of mapped-v4 not 0")
+testcase("::ffff:0.44.42.34" in t, "first v4 octet of mapped-v4 is 0")
+

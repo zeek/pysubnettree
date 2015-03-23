@@ -1,0 +1,105 @@
+# Test that attempting to do something erroneous is handled correctly.
+#
+# @TEST-EXEC: python %INPUT
+
+from testsetup import testcase, ipv4binary
+import SubnetTree
+
+t = SubnetTree.SubnetTree()
+
+# Verify that trying to add invalid entries fails
+try:
+    t["a.b.c.d/24"] = "invalid"
+    testcase(False, "assignment should have failed")
+except ValueError:
+    pass
+
+try:
+    t["1.2.3.0/a"] = "invalid"
+    testcase(False, "assignment should have failed")
+except ValueError:
+    pass
+
+try:
+    t[None] = "invalid"
+    testcase(False, "assignment should have failed")
+except TypeError:
+    pass
+
+
+# Verify that trying to do lookups with non-string data types fails
+try:
+    if None in t:  pass
+    testcase(False, "None should not match anything")
+except TypeError:
+    pass
+ 
+try: 
+    if t[None]:  pass
+    testcase(False, "lookup of None should fail")
+except TypeError:
+    pass
+
+try: 
+    if t[42]:  pass
+    testcase(False, "lookup of integer should fail")
+except TypeError:
+    pass
+
+# Verify that attempting to remove entry with wrong data type fails
+try:
+    del t[None]
+    testcase(False, "attempted removal should throw exception")
+except TypeError:
+    pass
+
+
+# switch to binary lookup mode
+t.set_binary_lookup_mode()
+
+t["49.58.0.0/16"] = "Network 49.58.0.0/16"
+t["2000:1234::/64"] = "Network 2000:1234::/64"
+
+# Verify that string lookups fail in binary mode
+try:
+    if "49.58.1.1" in t:  pass
+    testcase(False, "string lookup should throw exception in binary mode")
+except ValueError:
+    pass
+
+try:
+    if "2000:1234::1" in t:  pass
+    testcase(False, "string lookup should throw exception in binary mode")
+except ValueError:
+    pass
+
+try:
+    if t["49.58.1.1"]:  pass
+    testcase(False, "string lookup should throw exception in binary mode")
+except KeyError:
+    pass
+
+# If lookup string length is 16 bytes then it is interpreted as IPv6 address
+# due to being in binary lookup mode
+testcase("2000:1234::99:99" not in t, "16-byte IPv6 text string")
+
+# If lookup string length is 4 bytes then it is interpreted as IPv4 address
+# due to being in binary lookup mode
+testcase(t["1::5"] == "Network 49.58.0.0/16", "4-byte IPv6 text string")
+
+
+# turn off binary lookup mode
+t.set_binary_lookup_mode(False)
+
+t.insert("1::/64", "Network 1::/64")
+
+# Verify that binary lookups fail when not in binary lookup mode
+try:
+    if t[ipv4binary("1.2.3.4")]:  pass
+    testcase(False, "binary lookup should throw exception if not in binary mode")
+except KeyError:
+    pass
+
+# Some IPv4 addrs in binary form have same value as a 4-byte IPv6 string
+testcase(t[ipv4binary("49.58.58.50")] == "Network 1::/64", "IPv4 binary lookup")
+

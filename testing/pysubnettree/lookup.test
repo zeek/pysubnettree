@@ -1,0 +1,55 @@
+# Test that lookups match the correct entry.
+#
+# @TEST-EXEC: python %INPUT
+
+from testsetup import testcase, ipv4binary, ipv6binary
+import SubnetTree
+
+def ipv4_func(ipstr):
+    return ipstr
+
+def ipv6_func(ipstr):
+    return ipstr
+
+def do_tests(binarymode):
+    if binarymode:
+        v4 = ipv4binary
+        v6 = ipv6binary
+    else:
+        v4 = ipv4_func
+        v6 = ipv6_func
+
+    t = SubnetTree.SubnetTree(binarymode)
+
+    t.insert("1.2.3.4/16", "Network 1.2.0.0/16")
+    t["4.3.2.1/8"] = "Network 4.0.0.0/8"
+    t.insert("1:2:3:4::/64")
+    t.insert("1:2:3:7::/64", "Network 1:2:3:7::/64")
+    t.insert("1:2::/32", "Network 1:2::/32")
+    t["2:3::/32"] = "Network 2:3::/32"
+
+    # Verify that lookups match the correct entry
+    testcase(t[v4("4.1.255.255")] == "Network 4.0.0.0/8", "IPv4 in Network 4")
+    testcase(t[v4("1.2.3.255")] == "Network 1.2.0.0/16", "IPv4 in Network 1")
+    testcase(t[v6("1:2:3:4::1")] == "<dummy string>", "entry with no object")
+    testcase(t[v6("2:3::1")] == "Network 2:3::/32", "IPv6 in Network 2")
+    testcase(t[v6("1:2:99::")] == "Network 1:2::/32", "IPv6 in Network 1:2")
+    testcase(t[v6("1:2:3:7:10::")] == "Network 1:2:3:7::/64", "IPv6 in Network 1:2:3:7")
+
+    # Verify that lookups that don't match anything will fail
+    try:
+        if t[v4("1.3.3.255")]:  pass
+        testcase(False, "lookup should throw exception")
+    except KeyError:
+        pass
+
+    try:
+        if t[v6("1:3:3::3")]:  pass
+        testcase(False, "lookup should throw exception")
+    except KeyError:
+        pass
+
+
+do_tests(False)
+do_tests(True)
+

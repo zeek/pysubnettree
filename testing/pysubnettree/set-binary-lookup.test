@@ -1,0 +1,52 @@
+# Test that set_binary_lookup_mode() sets the mode correctly.
+#
+# @TEST-EXEC: python %INPUT
+
+from testsetup import testcase
+import SubnetTree
+
+####################
+# Initial mode is the default
+
+t = SubnetTree.SubnetTree()
+t.set_binary_lookup_mode(False)
+testcase(not t.get_binary_lookup_mode(), "binary lookup mode should be False")
+
+t = SubnetTree.SubnetTree()
+t.set_binary_lookup_mode(True)
+testcase(t.get_binary_lookup_mode(), "binary lookup mode should be True")
+
+t = SubnetTree.SubnetTree()
+t.set_binary_lookup_mode()
+testcase(t.get_binary_lookup_mode(), "binary lookup mode should be True")
+
+####################
+# Initial value is False
+
+t = SubnetTree.SubnetTree(False)
+t.set_binary_lookup_mode(False)
+testcase(not t.get_binary_lookup_mode(), "binary lookup mode should be False")
+
+t = SubnetTree.SubnetTree(False)
+t.set_binary_lookup_mode(True)
+testcase(t.get_binary_lookup_mode(), "binary lookup mode should be True")
+
+t = SubnetTree.SubnetTree(False)
+t.set_binary_lookup_mode()
+testcase(t.get_binary_lookup_mode(), "binary lookup mode should be True")
+
+####################
+# Initial value is True
+
+t = SubnetTree.SubnetTree(True)
+t.set_binary_lookup_mode(False)
+testcase(not t.get_binary_lookup_mode(), "binary lookup mode should be False")
+
+t = SubnetTree.SubnetTree(True)
+t.set_binary_lookup_mode(True)
+testcase(t.get_binary_lookup_mode(), "binary lookup mode should be True")
+
+t = SubnetTree.SubnetTree(True)
+t.set_binary_lookup_mode()
+testcase(t.get_binary_lookup_mode(), "binary lookup mode should be True")
+

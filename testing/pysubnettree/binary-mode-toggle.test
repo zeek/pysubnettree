@@ -1,0 +1,32 @@
+# Test that lookups work when switching in and out of binary mode.
+#
+# @TEST-EXEC: python %INPUT
+
+from testsetup import testcase, ipv4binary, ipv6binary
+import SubnetTree
+
+t = SubnetTree.SubnetTree(True)
+
+t.insert("10.0.0.0/16")
+t["12.1.2.0/24"] = "IPv4 added in binary mode"
+t["2000:1234::/64"] = "IPv6 added in binary mode"
+
+#############################
+# turn off binary lookup mode
+t.set_binary_lookup_mode(False)
+
+t.insert("11.11.0.0/16", "IPv4 added")
+t.insert("1:2::/32", "IPv6 added")
+
+# Verify that string lookups of entries added in binary lookup mode work
+testcase("10.0.1.255" in t, "lookup should work")
+testcase(t["2000:1234::1"] == "IPv6 added in binary mode", "lookup should work")
+
+#############################
+# turn on binary lookup mode
+t.set_binary_lookup_mode(True)
+
+# Verify binary mode lookups work for entries added when binary mode was off
+testcase(t[ipv4binary("11.11.2.255")] == "IPv4 added", "lookup should work")
+testcase(ipv6binary("1:2:3:4::5") in t, "lookup should work")
+
