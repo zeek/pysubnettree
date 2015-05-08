@@ -22,6 +22,7 @@ clean:
 .PHONY: dist
 dist:
 	@python setup.py sdist
+	@printf "Package: "; echo dist/*.tar.gz
 
 distclean:
 	rm -rf pysubnettree.egg-info
