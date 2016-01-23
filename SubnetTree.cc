@@ -252,6 +252,57 @@ PyObject* SubnetTree::lookup(int family, inx_addr addr) const
     return data;
 }
 
+PyObject* SubnetTree::prefixes(bool ipv4_native /*=false*/, bool with_len /*=true*/) const
+{
+    char buf[INET6_ADDRSTRLEN];
+    PyObject* set = PySet_New(NULL);
+
+    patricia_node_t *node;
+    PATRICIA_WALK (tree->head, node) {
+        prefix_t* pf = node->prefix;
+        PyObject* pstr = NULL;
+        if (ipv4_native) {
+            // IPv4 addresses are stored mapped into the IPv6 space. 
+            // (Xref: https://en.wikipedia.org/wiki/IPv6#IPv4-mapped_IPv6_addresses)
+            // We'll check the first 12 bytes (96 bits) of the stored address to see if
+            // they match v4_mapped_prefix.
+            uint8_t* addrstart = (uint8_t*) &pf->add.sin6;
+            if (memcmp(&v4_mapped_prefix, addrstart, 12) == 0) {
+                // Skip over the mapped-prefix to the IPV4 addr part.  And we need to correct
+                // the bitlen to make it valid for IPv4 (by subtracting the 96 mapped-prefix bits).
+                addrstart += 12;
+                if (with_len) {
+                    pstr = PyString_FromFormat("%d.%d.%d.%d/%d", 
+                        addrstart[0], addrstart[1], addrstart[2], addrstart[3], pf->bitlen-96);
+                } else {
+                    pstr = PyString_FromFormat("%d.%d.%d.%d", 
+                        addrstart[0], addrstart[1], addrstart[2], addrstart[3]);
+                }
+            }
+        }
+
+        // Format as IPv6 address.
+        if (!pstr) {
+            const char* addrstr = inet_ntop(AF_INET6, &pf->add.sin6, buf, INET6_ADDRSTRLEN);
+            if (!addrstr) {
+                PyErr_SetString(PyExc_ValueError, "Unable to string-ify IPv6 address.");
+                return NULL;
+            }
+            
+            if (with_len) {
+                pstr = PyString_FromFormat("%s/%d", addrstr, pf->bitlen);
+            } else {
+                pstr = PyString_FromFormat("%s", addrstr);
+            }
+        }
+
+        PySet_Add(set, pstr);
+        Py_DECREF(pstr);
+    } PATRICIA_WALK_END;
+
+    return set;
+}
+
 bool SubnetTree::get_binary_lookup_mode()
 {
     return binary_lookup_mode;
