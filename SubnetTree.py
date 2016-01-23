@@ -103,6 +103,7 @@ class SubnetTree(_object):
     def insert(self, *args): return _SubnetTree.SubnetTree_insert(self, *args)
     def remove(self, *args): return _SubnetTree.SubnetTree_remove(self, *args)
     def lookup(self, *args): return _SubnetTree.SubnetTree_lookup(self, *args)
+    def prefixes(self, ipv4_native = False, with_len = True): return _SubnetTree.SubnetTree_prefixes(self, ipv4_native, with_len)
     def get_binary_lookup_mode(self): return _SubnetTree.SubnetTree_get_binary_lookup_mode(self)
     def set_binary_lookup_mode(self, binary_lookup_mode = True): return _SubnetTree.SubnetTree_set_binary_lookup_mode(self, binary_lookup_mode)
     def __contains__(self, *args): return _SubnetTree.SubnetTree___contains__(self, *args)
