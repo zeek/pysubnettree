@@ -1,4 +1,10 @@
 
+0.24-7 | 2016-01-25 14:22:14 -0800
+
+  * Added prefixes() method to return all prefixes in the tree as a
+    set of strings, with or without length.  Also supports returning
+    IPv4 addresses in their "native" format. (James Royalty)
+
 0.24 | 2015-05-07 20:24:57 -0700
 
   * Release 0.24.
