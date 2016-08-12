@@ -1,4 +1,8 @@
 
+0.25 | 2016-08-12 13:19:45 -0700
+
+  * Release 0.25.
+
 0.24-7 | 2016-01-25 14:22:14 -0800
 
   * Added prefixes() method to return all prefixes in the tree as a
