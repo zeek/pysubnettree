@@ -1,0 +1,35 @@
+# Test the prefixes() function with all combinations of input parameters.
+#
+# @TEST-EXEC: python %INPUT
+
+from testsetup import testcase
+import SubnetTree
+
+t = SubnetTree.SubnetTree()
+
+p = t.prefixes()
+testcase(not p, "empty tree should have empty prefix set")
+
+t["::ffff:0:0/96"] = "IPv4-mapped addrs"
+t["1:2:3:4::/64"] = "IPv6 /64"
+t["10.1.0.0/16"] = "IPv4 /16"
+t["10.1.42.0/24"] = "IPv4 /24"
+t["2620:4d:4004:3::2/64"] = "IPv6 /64 2"
+t["189.247.142.246/24"] = "IPv4 /24 2"
+
+expected = set(['::ffff:10.1.0.0', '::ffff:189.247.142.246', '2620:4d:4004:3::2', '::ffff:0.0.0.0', '::ffff:10.1.42.0', '1:2:3:4::'])
+p = t.prefixes(with_len=False) - expected
+testcase(not p, "prefixes should be all IPv6 no len")
+
+expected = set(['2620:4d:4004:3::2/64', '::ffff:189.247.142.246/120', '::ffff:10.1.0.0/112', '1:2:3:4::/64', '::ffff:10.1.42.0/120', '::ffff:0.0.0.0/96'])
+p = t.prefixes() - expected
+testcase(not p, "prefixes should be all IPv6 with len")
+
+expected = set(['2620:4d:4004:3::2', '189.247.142.246', '10.1.42.0', '10.1.0.0', '0.0.0.0', '1:2:3:4::'])
+p = t.prefixes(ipv4_native=True, with_len=False) - expected
+testcase(not p, "prefixes should include IPv4 native no len")
+
+expected = set(['2620:4d:4004:3::2/64', '10.1.0.0/16', '10.1.42.0/24', '1:2:3:4::/64', '189.247.142.246/24', '0.0.0.0/0'])
+p = t.prefixes(ipv4_native=True) - expected
+testcase(not p, "prefixes should include IPv4 native with len")
+
