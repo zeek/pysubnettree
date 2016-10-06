@@ -255,6 +255,8 @@ PyObject* SubnetTree::lookup(int family, inx_addr addr) const
 PyObject* SubnetTree::prefixes(bool ipv4_native /*=false*/, bool with_len /*=true*/) const
 {
     char buf[INET6_ADDRSTRLEN];
+    char buffer[64];
+    bool wrote_buffer;
     PyObject* set = PySet_New(NULL);
 
     patricia_node_t *node;
@@ -262,6 +264,8 @@ PyObject* SubnetTree::prefixes(bool ipv4_native /*=false*/, bool with_len /*=tru
     PATRICIA_WALK (tree->head, node) {
         prefix_t* pf = node->prefix;
         PyObject* pstr = NULL;
+
+        wrote_buffer = false;
 
         if ( ipv4_native ) {
             // IPv4 addresses are stored mapped into the IPv6 space. (Xref:
@@ -277,21 +281,23 @@ PyObject* SubnetTree::prefixes(bool ipv4_native /*=false*/, bool with_len /*=tru
                 addrstart += 12;
 
                 if ( with_len ) {
-                    pstr = PyString_FromFormat("%d.%d.%d.%d/%d",
+                    snprintf(buffer, sizeof buffer, "%d.%d.%d.%d/%d",
                                                addrstart[0], addrstart[1],
                                                addrstart[2], addrstart[3],
                                                pf->bitlen - 96);
                 }
 
                 else {
-                    pstr = PyString_FromFormat("%d.%d.%d.%d",
+                    snprintf(buffer, sizeof buffer, "%d.%d.%d.%d",
                                                addrstart[0], addrstart[1],
                                                addrstart[2], addrstart[3]);
                 }
+
+                wrote_buffer = true;
             }
         }
 
-        if ( ! pstr ) {
+        if ( ! wrote_buffer ) {
             // Format as IPv6 address.
 
             const char* addrstr = inet_ntop(AF_INET6, &pf->add.sin6, buf, INET6_ADDRSTRLEN);
@@ -302,10 +308,16 @@ PyObject* SubnetTree::prefixes(bool ipv4_native /*=false*/, bool with_len /*=tru
             }
 
             if ( with_len )
-                pstr = PyString_FromFormat("%s/%d", addrstr, pf->bitlen);
+                snprintf(buffer, sizeof buffer, "%s/%d", addrstr, pf->bitlen);
             else
-                pstr = PyString_FromFormat("%s", addrstr);
+                snprintf(buffer, sizeof buffer, "%s", addrstr);
         }
+
+#if PY_MAJOR_VERSION >= 3
+        pstr = PyUnicode_FromString(buffer);
+#else
+        pstr = PyString_FromString(buffer);
+#endif
 
         PySet_Add(set, pstr);
         Py_DECREF(pstr);
