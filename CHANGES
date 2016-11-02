@@ -1,4 +1,8 @@
 
+0.26 | 2016-10-27 14:43:48 -0700
+
+ * Release 0.26.
+
 0.25-4 | 2016-10-06 09:08:48 -0700
 
   * Fix the prefixes() function to compile and work on Python 3.
