@@ -1,4 +1,8 @@
 
+0.27 | 2017-05-26 08:28:10 -0500
+
+  * Release 0.27.
+
 0.26-2 | 2016-12-06 12:33:17 -0800
 
   * Fix compiler warnings on OpenBSD, add missing include. (Daniel Thayer)
