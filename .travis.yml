@@ -6,6 +6,15 @@ python:
   - "3.5"
   - "3.6"
 
+branches:
+  only:
+  - master
+
+notifications:
+  email:
+    recipients:
+    - bro-commits-internal@bro.org
+
 before_install: pip install btest
 
 install: python setup.py install
