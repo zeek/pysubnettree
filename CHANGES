@@ -1,4 +1,10 @@
 
+0.27-9 | 2018-03-29 12:57:25 -0700
+
+  * Update README with correct Python version requirement. (Daniel Thayer)
+
+  * Fix some issues reported by Coverity. (Daniel Thayer)
+
 0.27-6 | 2018-03-15 14:56:13 -0700
 
   * Configure Travis CI email recipients and build branches. (Daniel

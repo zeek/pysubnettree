@@ -67,6 +67,13 @@ static char copyright[] =
 
 #define Delete free
 
+void out_of_memory(const char* where)
+    {
+    fprintf(stderr, "out of memory in %s.\n", where);
+
+    abort();
+    }
+
 /* { from prefix.c */
 
 /* prefix_tochar
@@ -122,7 +129,7 @@ local_inet_pton (int af, const char *src, void *dst)
 	}
 #else
     else {
-   	errno = EAFNOSUPPORT;
+	errno = EAFNOSUPPORT;
 	return -1;
     }
 #endif /* NT */
@@ -252,6 +259,9 @@ New_Prefix2 (int family, void *dest, int bitlen, prefix_t *prefix)
         default_bitlen = 128;
 	if (prefix == NULL) {
             prefix = calloc(1, sizeof (prefix_t));
+            if (prefix == NULL)
+                out_of_memory("patricia/new_prefix2");
+
 	    dynamic_allocated++;
 	}
 	memcpy (&prefix->add.sin6, dest, 16);
@@ -266,6 +276,8 @@ New_Prefix2 (int family, void *dest, int bitlen, prefix_t *prefix)
 			//prefix4_t size incorrect on NT
 			prefix = calloc(1, sizeof (prefix_t));
 #endif /* NT */
+			if (prefix == NULL)
+				out_of_memory("patricia/new_prefix2");
 
 			dynamic_allocated++;
 		}
@@ -397,6 +409,8 @@ patricia_tree_t *
 New_Patricia (int maxbits)
 {
     patricia_tree_t *patricia = calloc(1, sizeof *patricia);
+    if (patricia == NULL)
+        out_of_memory("patricia/new_patricia");
 
     patricia->maxbits = maxbits;
     patricia->head = NULL;
@@ -666,6 +680,9 @@ patricia_lookup (patricia_tree_t *patricia, prefix_t *prefix)
 
     if (patricia->head == NULL) {
 	node = calloc(1, sizeof *node);
+	if (node == NULL)
+		out_of_memory("patricia/patricia_lookup");
+
 	node->bit = prefix->bitlen;
 	node->prefix = Ref_Prefix (prefix);
 	node->parent = NULL;
@@ -777,6 +794,9 @@ patricia_lookup (patricia_tree_t *patricia, prefix_t *prefix)
     }
 
     new_node = calloc(1, sizeof *new_node);
+    if (new_node == NULL)
+        out_of_memory("patricia/patricia_lookup");
+
     new_node->bit = prefix->bitlen;
     new_node->prefix = Ref_Prefix (prefix);
     new_node->parent = NULL;
@@ -829,6 +849,9 @@ patricia_lookup (patricia_tree_t *patricia, prefix_t *prefix)
     }
     else {
         glue = calloc(1, sizeof *glue);
+        if (glue == NULL)
+            out_of_memory("patricia/patricia_lookup");
+
         glue->bit = differ_bit;
         glue->prefix = NULL;
         glue->parent = node->parent;
@@ -1009,7 +1032,7 @@ lookup_then_remove (patricia_tree_t *tree, char *string)
 {
     patricia_node_t *node;
 
-    if ((node = try_search_exact (tree, string)))
+    if ( (node = try_search_exact(tree, string)) )
         patricia_remove (tree, node);
 }
 
