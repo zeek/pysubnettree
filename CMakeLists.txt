@@ -38,7 +38,15 @@ include(UseSWIG)
 
 set_source_files_properties(SubnetTree.i PROPERTIES CPLUSPLUS true)
 set(SWIG_MODULE_SubnetTree_EXTRA_DEPS SubnetTree.h)
-swig_add_module(SubnetTree python SubnetTree.i SubnetTree.cc patricia.c)
+
+if ( CMAKE_VERSION VERSION_LESS 3.8.0 )
+    swig_add_module(SubnetTree python SubnetTree.i SubnetTree.cc patricia.c)
+else ()
+    swig_add_library(SubnetTree
+                     LANGUAGE python
+                     SOURCES SubnetTree.i SubnetTree.cc patricia.c)
+endif ()
+
 swig_link_libraries(SubnetTree ${PYTHON_LIBRARIES})
 set_source_files_properties(${swig_generated_file_fullname} SubnetTree.cc
                             PROPERTIES COMPILE_FLAGS -fno-strict-aliasing)
