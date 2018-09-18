@@ -1,4 +1,8 @@
 
+0.28 | 2018-08-22 11:55:29 -0500
+
+  * Release v0.28.
+
 0.27-18 | 2018-08-06 15:59:38 -0500
 
   * Fix deprecation warning for swig_add_module (Jon Siwek, Corelight)
