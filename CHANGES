@@ -1,4 +1,8 @@
 
+0.29-1 | 2019-03-22 16:33:21 -0700
+
+  * Update the `make upload` target to use twine (Jon Siwek, Corelight)
+
 0.29 | 2019-03-22 16:16:56 -0700
 
   * Release 0.29.

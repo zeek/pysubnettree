@@ -29,8 +29,21 @@ distclean:
 	rm -rf dist
 	rm -rf build
 
-upload:
-	python setup.py sdist upload --sign --identity F8CB8019
+.PHONY: upload
+upload: dist
+	twine upload -u zeek dist/pysubnettree-$(VERSION).tar.gz
+
+.PHONY: twine-check
+twine-check:
+	@type twine > /dev/null 2>&1 || \
+		{ \
+		echo "Uploading to PyPi requires 'twine' and it's not found in PATH."; \
+		echo "Install it and/or make sure it is in PATH."; \
+		echo "E.g. you could use the following command to install it:"; \
+		echo "\tpip install twine"; \
+		echo ; \
+		exit 1; \
+		}
 
 .PHONY : test
 test:
