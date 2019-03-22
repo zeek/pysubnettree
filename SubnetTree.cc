@@ -13,21 +13,23 @@ const uint8_t v4_mapped_prefix[12] = { 0, 0, 0, 0,
                                        0, 0, 0, 0,
                                        0, 0, 0xff, 0xff };
 
-inline static prefix_t* make_prefix(int family, inx_addr * addr, unsigned int width)
+inline static prefix_t* make_prefix()
+{
+    prefix_t* rval = (prefix_t*) malloc(sizeof(prefix_t));
+    rval->ref_count = 1;
+    return rval;
+}
+
+inline static bool set_prefix(prefix_t* subnet, int family, inx_addr* addr, unsigned int width)
 {
     if ( ! (family == AF_INET || family == AF_INET6) )
-        return 0;
+        return false;
 
     if ( family == AF_INET && width > 32 )
-        return 0;
+        return false;
 
     if ( family == AF_INET6 && width > 128 )
-        return 0;
-
-    prefix_t* subnet = (prefix_t*) malloc(sizeof(prefix_t));
-
-	if ( ! subnet )
-		return 0;
+        return false;
 
     if ( family == AF_INET )
         {
@@ -40,9 +42,8 @@ inline static prefix_t* make_prefix(int family, inx_addr * addr, unsigned int wi
 
     subnet->family = AF_INET6;
     subnet->bitlen = (family == AF_INET ? width + 96 : width);
-    subnet->ref_count = 1;
 
-    return subnet;
+    return true;
 }
 
 inline static bool parse_cidr(const char *cidr, int *family, inx_addr *subnet, unsigned short *mask)
@@ -135,7 +136,21 @@ PyObject* SubnetTree::insert(unsigned long subnet, unsigned short mask, PyObject
 
 PyObject* SubnetTree::insert(int family, inx_addr subnet, unsigned short mask, PyObject * data)
 {
-    prefix_t* sn = make_prefix(family, &subnet, mask);
+    prefix_t* sn = make_prefix();
+
+    if ( ! sn ) {
+        PyErr_SetString(PyExc_MemoryError, "out of memory");
+        return 0;
+    }
+
+    bool res = set_prefix(sn, family, &subnet, mask);
+
+    if ( ! res ) {
+        Deref_Prefix(sn);
+        PyErr_SetString(PyExc_RuntimeError, "invalid subnet/prefix");
+        return 0;
+    }
+
     patricia_node_t* node = patricia_lookup(tree, sn);
     Deref_Prefix(sn);
 
@@ -177,7 +192,21 @@ PyObject* SubnetTree::remove(unsigned long addr, unsigned short mask)
 
 PyObject* SubnetTree::remove(int family, inx_addr addr, unsigned short mask)
 {
-    prefix_t* subnet = make_prefix(family, &addr, mask);
+    prefix_t* subnet = make_prefix();
+
+    if ( ! subnet ) {
+        PyErr_SetString(PyExc_MemoryError, "out of memory");
+        return 0;
+    }
+
+    bool res = set_prefix(subnet, family, &addr, mask);
+
+    if ( ! res ) {
+        Deref_Prefix(subnet);
+        PyErr_SetString(PyExc_RuntimeError, "invalid subnet/prefix");
+        return 0;
+    }
+
     patricia_node_t* node = patricia_search_exact(tree, subnet);
     Deref_Prefix(subnet);
 
@@ -238,8 +267,22 @@ PyObject* SubnetTree::lookup(unsigned long addr) const
 
 PyObject* SubnetTree::lookup(int family, inx_addr addr) const
 {
+    prefix_t* subnet = make_prefix();
+
+    if ( ! subnet ) {
+        PyErr_SetString(PyExc_RuntimeError, "invalid subnet/prefix");
+        return 0;
+    }
+
     int mask = family == AF_INET ? 32 : 128;
-    prefix_t* subnet = make_prefix(family, &addr, mask);
+    bool res = set_prefix(subnet, family, &addr, mask);
+
+    if ( ! res ) {
+        Deref_Prefix(subnet);
+        PyErr_SetString(PyExc_MemoryError, "out of memory");
+        return 0;
+    }
+
     patricia_node_t* node = patricia_search_best(tree, subnet);
     Deref_Prefix(subnet);
 
