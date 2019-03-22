@@ -20,7 +20,7 @@ with open('README') as file:
     long_description = file.read()
 
 setup(name="pysubnettree",
-    version="0.28-11", # Filled in automatically.
+    version="0.29", # Filled in automatically.
     maintainer="The Bro Project",
     maintainer_email="info@bro.org",
     license="BSD",

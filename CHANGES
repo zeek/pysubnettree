@@ -1,4 +1,8 @@
 
+0.29 | 2019-03-22 16:16:56 -0700
+
+  * Release 0.29.
+
 0.28-11 | 2019-03-22 16:15:24 -0700
 
   * Improve parsing/handling of invalid subnet strings (Shai Bentov)
