@@ -19,8 +19,8 @@ type python > /dev/null 2>&1 || {
 }
 
 site_packages=`python -c "from distutils.sysconfig import get_python_lib;\
-print get_python_lib(True)"`
-pyver=`python -c "import sys; print \"%s.%s\" % (sys.version_info[0], sys.version_info[1])"`
+print(get_python_lib(True))"`
+pyver=`python -c "import sys; print(\"%s.%s\" % (sys.version_info[0], sys.version_info[1]))"`
 
 usage="\
 Usage: $0 [OPTION]... [VAR=VALUE]...
