@@ -85,6 +85,11 @@ inline static bool parse_cidr(const char *cidr, int *family, inx_addr *subnet, u
 
         if ( endptr == mask_str || errno != 0 )
             return false;
+
+        if ( *family == AF_INET && *mask > 32 )
+            return false;
+        else if ( *mask > 128 )
+            return false;
     }
     else {
         if ( *family == AF_INET )

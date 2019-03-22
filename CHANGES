@@ -1,4 +1,12 @@
 
+0.28-11 | 2019-03-22 16:15:24 -0700
+
+  * Improve parsing/handling of invalid subnet strings (Shai Bentov)
+
+  * GH-12: fix segfault on invalid prefixes (Jon Siwek, Corelight)
+
+  * Fix python3 compatibility of ./configure script (Jon Siwek, Corelight)
+
 0.28-2 | 2018-12-07 16:30:21 -0600
 
   * Update github/download link (Jon Siwek, Corelight)

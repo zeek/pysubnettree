@@ -33,3 +33,8 @@ expected = set(['2620:4d:4004:3::2/64', '10.1.0.0/16', '10.1.42.0/24', '1:2:3:4:
 p = t.prefixes(ipv4_native=True) - expected
 testcase(not p, "prefixes should include IPv4 native with len")
 
+try:
+	# Expect an exception when giving an invalid prefix
+	t.insert('8.8.8.8/56')
+except ValueError:
+	pass
