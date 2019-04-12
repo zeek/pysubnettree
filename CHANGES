@@ -1,4 +1,12 @@
 
+0.29-3 | 2019-04-12 16:34:55 -0700
+
+  * Check for twine existence in `make upload` (Jon Siwek, Corelight)
+
+  * GH-14: Fix segfault in lookup operations with Python3 (Jon Siwek, Corelight)
+
+    Due to decrementing a reference count too early.
+
 0.29-1 | 2019-03-22 16:33:21 -0700
 
   * Update the `make upload` target to use twine (Jon Siwek, Corelight)

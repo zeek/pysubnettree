@@ -30,7 +30,7 @@ distclean:
 	rm -rf build
 
 .PHONY: upload
-upload: dist
+upload: twine-check dist
 	twine upload -u zeek dist/pysubnettree-$(VERSION).tar.gz
 
 .PHONY: twine-check
