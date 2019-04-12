@@ -1,4 +1,8 @@
 
+0.30 | 2019-04-12 16:36:23 -0700
+
+  * Release 0.30.
+
 0.29-3 | 2019-04-12 16:34:55 -0700
 
   * Check for twine existence in `make upload` (Jon Siwek, Corelight)
