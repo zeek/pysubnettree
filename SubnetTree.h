@@ -7,16 +7,23 @@ extern "C" {
 // If a function is supposed to accept 4-byte tuples as packet by
 // socket.inet_aton(), it needs to accept strings which contain 0s.
 // Therefore, we need a size parameter.
-%typemap(in) (char* cidr, int size)
+%typemap(in) (char* cidr, int size) (PyObject* ascii)
 	%{
 	Py_ssize_t len;
+
 #if PY_MAJOR_VERSION >= 3
 	if ( PyUnicode_Check($input) )
 		{
-		PyObject* ascii = PyUnicode_AsASCIIString($input);
+		ascii = PyUnicode_AsASCIIString($input);
+
+		if ( ! ascii )
+			{
+			PyErr_SetString(PyExc_TypeError, "Expected a ASCII encodable string or bytes");
+			return NULL;
+			}
+
 		PyBytes_AsStringAndSize(ascii, &$1, &len);
 		$2 = len;
-		Py_DECREF(ascii);
 		}
 	else if ( PyBytes_Check($input) )
 		{
@@ -41,6 +48,16 @@ extern "C" {
 		}
 #endif
 	%}
+
+%typemap(arginit) (char* cidr, int size)
+	{
+	ascii$argnum = NULL;
+	}
+
+%typemap(freearg) (char* cidr, int size)
+	{
+	Py_XDECREF(ascii$argnum);
+	}
 
 %typecheck(SWIG_TYPECHECK_STRING) (char* cidr, int size)
 	{
