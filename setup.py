@@ -21,12 +21,12 @@ with open('README') as file:
 
 setup(name="pysubnettree",
     version="0.30", # Filled in automatically.
-    maintainer="The Bro Project",
-    maintainer_email="info@bro.org",
+    maintainer="The Zeek Project",
+    maintainer_email="info@zeek.org",
     license="BSD",
     description=description,
     py_modules=['SubnetTree'],
-    url="http://www.bro.org/sphinx/components/pysubnettree/README.html",
+    url="http://www.zeek.org/sphinx/components/pysubnettree/README.html",
     ext_modules = [
         Extension("_SubnetTree",
             sources=["SubnetTree.cc", "patricia.c", "SubnetTree_wrap.cc"],
