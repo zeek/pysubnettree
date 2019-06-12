@@ -1,4 +1,10 @@
 
+0.30-7 | 2019-06-12 15:06:22 -0700
+
+  * Update for a directory name change  (Daniel Thayer)
+
+    Also a few other unrelated bro to zeek renaming changes.
+
 0.30 | 2019-04-12 16:36:23 -0700
 
   * Release 0.30.
