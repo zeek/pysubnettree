@@ -1,4 +1,8 @@
 
+0.30-9 | 2019-06-17 20:15:55 -0700
+
+  * Update Travis config for bro to zeek renaming (Daniel Thayer)
+
 0.30-7 | 2019-06-12 15:06:22 -0700
 
   * Update for a directory name change  (Daniel Thayer)
