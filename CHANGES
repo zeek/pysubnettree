@@ -1,4 +1,8 @@
 
+0.31 | 2019-08-01 12:05:46 -0700
+
+  * Release 0.31.
+
 0.30-10 | 2019-08-01 12:05:12 -0700
 
   * Drop use of Python 2.6 for Travis CI tests (Jon Siwek, Corelight)
