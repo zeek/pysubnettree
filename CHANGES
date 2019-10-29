@@ -1,4 +1,8 @@
 
+0.31-7 | 2019-10-28 18:08:28 -0700
+
+  * Move CMake project() after cmake_minimum_required() (Jon Siwek, Corelight)
+
 0.31 | 2019-08-01 12:05:46 -0700
 
   * Release 0.31.
