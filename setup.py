@@ -30,7 +30,8 @@ setup(name="pysubnettree",
     ext_modules = [
         Extension("_SubnetTree",
             sources=["SubnetTree.cc", "patricia.c", "SubnetTree_wrap.cc"],
-            depends=["SubnetTree.h", "patricia.h"]),
+            depends=["include/SubnetTree.h", "include/patricia.h"],
+            include_dirs=["include/"])
         ]
 )
 

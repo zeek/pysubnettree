@@ -29,7 +29,7 @@ if (MISSING_PREREQS)
 endif ()
 
 include_directories(BEFORE ${PYTHON_INCLUDE_DIR})
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 ########################################################################
 ## Build Python Extension
@@ -37,7 +37,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include(UseSWIG)
 
 set_source_files_properties(SubnetTree.i PROPERTIES CPLUSPLUS true)
-set(SWIG_MODULE_SubnetTree_EXTRA_DEPS SubnetTree.h)
+set(SWIG_MODULE_SubnetTree_EXTRA_DEPS include/SubnetTree.h)
 
 if ( CMAKE_VERSION VERSION_LESS 3.8.0 )
     swig_add_module(SubnetTree python SubnetTree.i SubnetTree.cc patricia.c)
