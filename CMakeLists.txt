@@ -34,6 +34,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 ########################################################################
 ## Build Python Extension
 
+cmake_policy(SET CMP0078 NEW)
+cmake_policy(SET CMP0086 NEW)
 include(UseSWIG)
 
 set_source_files_properties(SubnetTree.i PROPERTIES CPLUSPLUS true)
@@ -61,8 +63,14 @@ endif ()
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/SubnetTree.py
         DESTINATION ${PY_MOD_INSTALL_DIR})
-install(TARGETS ${SWIG_MODULE_SubnetTree_REAL_NAME}
-        DESTINATION ${PY_MOD_INSTALL_DIR})
+
+if ( ${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.13 )
+    install(TARGETS SubnetTree
+            DESTINATION ${PY_MOD_INSTALL_DIR})
+else ()
+    install(TARGETS ${SWIG_MODULE_SubnetTree_REAL_NAME}
+            DESTINATION ${PY_MOD_INSTALL_DIR})
+endif ()
 
 ########################################################################
 ## Build Summary
