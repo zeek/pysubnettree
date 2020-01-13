@@ -1,4 +1,11 @@
 
+0.31-15 | 2020-01-13 09:29:26 -0800
+
+  * Set CMake policies according to CMake version (Jon Siwek, Corelight)
+
+    CMake versions earlier than when the policy was introduced otherwise
+    emit an "unknown policy" error.
+
 0.31-14 | 2020-01-13 11:34:17 +0000
 
   * Update CMake script for new SWIG policies. (Jon Siwek, Corelight)

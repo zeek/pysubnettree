@@ -34,8 +34,14 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 ########################################################################
 ## Build Python Extension
 
-cmake_policy(SET CMP0078 NEW)
-cmake_policy(SET CMP0086 NEW)
+if ( ${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.13 )
+    cmake_policy(SET CMP0078 NEW)
+endif ()
+
+if ( ${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.14 )
+    cmake_policy(SET CMP0086 NEW)
+endif ()
+
 include(UseSWIG)
 
 set_source_files_properties(SubnetTree.i PROPERTIES CPLUSPLUS true)
