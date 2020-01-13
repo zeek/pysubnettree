@@ -34,11 +34,13 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 ########################################################################
 ## Build Python Extension
 
-if ( ${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.13 )
+if ( ${CMAKE_VERSION} VERSION_EQUAL 3.13 OR
+     ${CMAKE_VERSION} VERSION_GREATER 3.13 )
     cmake_policy(SET CMP0078 NEW)
 endif ()
 
-if ( ${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.14 )
+if ( ${CMAKE_VERSION} VERSION_EQUAL 3.14 OR
+     ${CMAKE_VERSION} VERSION_GREATER 3.14 )
     cmake_policy(SET CMP0086 NEW)
 endif ()
 
@@ -70,7 +72,8 @@ endif ()
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/SubnetTree.py
         DESTINATION ${PY_MOD_INSTALL_DIR})
 
-if ( ${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.13 )
+if ( ${CMAKE_VERSION} VERSION_EQUAL 3.13 OR
+     ${CMAKE_VERSION} VERSION_GREATER 3.13 )
     install(TARGETS SubnetTree
             DESTINATION ${PY_MOD_INSTALL_DIR})
 else ()

@@ -1,4 +1,8 @@
 
+0.31-16 | 2020-01-13 10:07:00 -0800
+
+  * Fix use of CMake VERSION_GREATER_EQUAL (Jon Siwek, Corelight)
+
 0.31-15 | 2020-01-13 09:29:26 -0800
 
   * Set CMake policies according to CMake version (Jon Siwek, Corelight)
