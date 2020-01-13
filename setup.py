@@ -20,7 +20,7 @@ with open('README') as file:
     long_description = file.read()
 
 setup(name="pysubnettree",
-    version="0.31-7", # Filled in automatically.
+    version="0.31-14", # Filled in automatically.
     maintainer="The Zeek Project",
     maintainer_email="info@zeek.org",
     license="BSD",
@@ -30,7 +30,8 @@ setup(name="pysubnettree",
     ext_modules = [
         Extension("_SubnetTree",
             sources=["SubnetTree.cc", "patricia.c", "SubnetTree_wrap.cc"],
-            depends=["SubnetTree.h", "patricia.h"]),
+            depends=["include/SubnetTree.h", "include/patricia.h"],
+            include_dirs=["include/"])
         ]
 )
 

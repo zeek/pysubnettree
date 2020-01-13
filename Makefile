@@ -2,10 +2,7 @@
 #
 # This Makefile generates the SWIG wrappers and the documentation.
 
-DISTFILES=COPYING Makefile README SubnetTree.cc SubnetTree.h \
-	SubnetTree.i SubnetTree.py SubnetTree_wrap.cc patricia.c patricia.h setup.py test.py
-
-CLEAN=build SubnetTree_wrap.cc SubnetTree.py README.html *.pyc 
+CLEAN=build SubnetTree_wrap.cc SubnetTree.py README.html *.pyc
 
 VERSION=`test -e VERSION && cat VERSION || cat ../VERSION`
 BUILD=build
@@ -13,7 +10,7 @@ TGZ=pysubnettree-$(VERSION)
 
 all: SubnetTree_wrap.cpp
 
-SubnetTree_wrap.cpp SubnetTree.py: SubnetTree.i SubnetTree.h
+SubnetTree_wrap.cpp SubnetTree.py: SubnetTree.i include/SubnetTree.h
 	swig -c++ -python -o SubnetTree_wrap.cc SubnetTree.i
 
 clean:

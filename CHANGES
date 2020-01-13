@@ -1,4 +1,13 @@
 
+0.31-14 | 2020-01-13 11:34:17 +0000
+
+  * Update CMake script for new SWIG policies. (Jon Siwek, Corelight)
+
+  * Fix btest.cfg's PYTHONPATH. (Jon Siwek, Corelight)
+
+  * Move header files into "include/ to avoid confusion on
+    case-insensitive file systems. (Jon Siwek, Corelight)
+
 0.31-7 | 2019-10-28 18:08:28 -0700
 
   * Move CMake project() after cmake_minimum_required() (Jon Siwek, Corelight)

@@ -2,7 +2,6 @@ include COPYING
 include CHANGES
 include Makefile
 include VERSION
-include patricia.h
-include SubnetTree.h
+include include/patricia.h
+include include/SubnetTree.h
 include SubnetTree.i
-include test.py
