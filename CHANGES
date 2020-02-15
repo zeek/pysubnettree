@@ -1,4 +1,8 @@
 
+0.32-2 | 2020-02-15 11:06:12 -0800
+
+  * GH-18: Update Makefile to use swig -I option (Jon Siwek, Corelight)
+
 0.32 | 2020-02-05 21:29:34 -0800
 
   * Release 0.32

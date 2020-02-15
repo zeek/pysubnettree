@@ -11,7 +11,7 @@ TGZ=pysubnettree-$(VERSION)
 all: SubnetTree_wrap.cpp
 
 SubnetTree_wrap.cpp SubnetTree.py: SubnetTree.i include/SubnetTree.h
-	swig -c++ -python -o SubnetTree_wrap.cc SubnetTree.i
+	swig -c++ -python -Iinclude -o SubnetTree_wrap.cc SubnetTree.i
 
 clean:
 	rm -rf $(CLEAN)
