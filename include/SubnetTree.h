@@ -22,12 +22,22 @@ extern "C" {
 			return NULL;
 			}
 
-		PyBytes_AsStringAndSize(ascii, &$1, &len);
+		if ( PyBytes_AsStringAndSize(ascii, &$1, &len) == -1 )
+			{
+			PyErr_SetString(PyExc_TypeError, "Failed to convert CIDR string to null-terminated string");
+			return NULL;
+			}
+
 		$2 = len;
 		}
 	else if ( PyBytes_Check($input) )
 		{
-		PyBytes_AsStringAndSize($input, &$1, &len);
+		if ( PyBytes_AsStringAndSize($input, &$1, &len) == -1 )
+			{
+			PyErr_SetString(PyExc_TypeError, "Failed to convert CIDR bytes to null-terminated string");
+			return NULL;
+			}
+
 		$2 = len;
 		}
 	else
