@@ -56,7 +56,19 @@ inline static bool parse_cidr(const char *cidr, int *family, inx_addr *subnet, u
     if ( ! cidr )
         return false;
 
-    const char *slash = strchr(cidr, '/');
+    const char* slash = 0;
+    const char* p = cidr;
+
+    while ( *p )
+        {
+        if ( *p == '/' )
+            {
+            slash = p;
+            break;
+            }
+
+        ++p;
+        }
 
     if ( slash ) {
         int len = slash - cidr < 40 ? slash - cidr : 39;
