@@ -1,4 +1,10 @@
 
+0.34 | 2020-07-23 10:12:30 -0700
+
+  * Release 0.34
+
+  * Update btest.cfg for aux/ to auxil/ rename (Jon Siwek, Corelight)
+
 0.33 | 2020-02-15 11:06:27 -0800
 
   * Release 0.33.
