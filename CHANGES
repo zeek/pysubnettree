@@ -1,4 +1,8 @@
 
+0.34-2 | 2020-09-22 11:03:48 -0700
+
+  * Fix undefined behavior of left-shifting a negative value (Jon Siwek, Corelight)
+
 0.34 | 2020-07-23 10:12:30 -0700
 
   * Release 0.34
