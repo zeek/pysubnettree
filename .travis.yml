@@ -1,9 +1,10 @@
 language: python
 python:
-  - "2.7"
-  - "3.4"
   - "3.5"
   - "3.6"
+  - "3.7"
+  - "3.8"
+  - "3.9"
 
 branches:
   only:
@@ -14,9 +15,9 @@ notifications:
     recipients:
     - zeek-commits-internal@zeek.org
 
-before_install: pip install btest
+before_install: pip3 install btest
 
-install: python setup.py install
+install: python3 setup.py install
 
 script: make test BTEST=`which btest`
 
