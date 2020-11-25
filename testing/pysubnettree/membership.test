@@ -1,6 +1,6 @@
 # Test that membership test operators ("in"/"not in") return expected result.
 #
-# @TEST-EXEC: python %INPUT
+# @TEST-EXEC: python3 %INPUT
 
 from testsetup import testcase, ipv4binary, ipv6binary
 import SubnetTree

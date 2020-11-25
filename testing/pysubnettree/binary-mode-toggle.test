@@ -1,6 +1,6 @@
 # Test that lookups work when switching in and out of binary mode.
 #
-# @TEST-EXEC: python %INPUT
+# @TEST-EXEC: python3 %INPUT
 
 from testsetup import testcase, ipv4binary, ipv6binary
 import SubnetTree

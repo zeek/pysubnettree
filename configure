@@ -13,14 +13,14 @@ use this configure script to access CMake equivalent functionality.\
     exit 1;
 }
 
-# check for `python` command
-type python > /dev/null 2>&1 || {
-    echo "This package requires Python, please install it first." >&2;
+# check for `python3` command
+type python3 > /dev/null 2>&1 || {
+    echo "This package requires Python 3, please install it first." >&2;
 }
 
-site_packages=`python -c "from distutils.sysconfig import get_python_lib;\
+site_packages=`python3 -c "from distutils.sysconfig import get_python_lib;\
 print(get_python_lib(True))"`
-pyver=`python -c "import sys; print(\"%s.%s\" % (sys.version_info[0], sys.version_info[1]))"`
+pyver=`python3 -c "import sys; print(\"%s.%s\" % (sys.version_info[0], sys.version_info[1]))"`
 
 usage="\
 Usage: $0 [OPTION]... [VAR=VALUE]...

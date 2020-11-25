@@ -1,6 +1,6 @@
 # Test the prefixes() function with all combinations of input parameters.
 #
-# @TEST-EXEC: python %INPUT
+# @TEST-EXEC: python3 %INPUT
 
 from testsetup import testcase
 import SubnetTree

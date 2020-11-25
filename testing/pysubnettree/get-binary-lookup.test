@@ -1,6 +1,6 @@
 # Test that get_binary_lookup_mode() returns expected result.
 #
-# @TEST-EXEC: python %INPUT
+# @TEST-EXEC: python3 %INPUT
 
 from testsetup import testcase
 import SubnetTree

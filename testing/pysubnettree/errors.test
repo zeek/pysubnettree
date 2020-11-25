@@ -1,6 +1,6 @@
 # Test that attempting to do something erroneous is handled correctly.
 #
-# @TEST-EXEC: python %INPUT
+# @TEST-EXEC: python3 %INPUT
 
 from testsetup import testcase, ipv4binary
 import SubnetTree
