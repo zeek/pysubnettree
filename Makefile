@@ -1,4 +1,4 @@
-# Makefile not needed to build module. Use "python setup.py install" instead.
+# Makefile not needed to build module. Use "python3 setup.py install" instead.
 #
 # This Makefile generates the SWIG wrappers and the documentation.
 
@@ -18,7 +18,7 @@ clean:
 
 .PHONY: dist
 dist:
-	@python setup.py sdist
+	@python3 setup.py sdist
 	@printf "Package: "; echo dist/*.tar.gz
 
 distclean:
@@ -37,7 +37,7 @@ twine-check:
 		echo "Uploading to PyPi requires 'twine' and it's not found in PATH."; \
 		echo "Install it and/or make sure it is in PATH."; \
 		echo "E.g. you could use the following command to install it:"; \
-		echo "\tpip install twine"; \
+		echo "\tpip3 install twine"; \
 		echo ; \
 		exit 1; \
 		}

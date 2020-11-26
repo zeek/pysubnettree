@@ -1,6 +1,6 @@
 # Test that set_binary_lookup_mode() sets the mode correctly.
 #
-# @TEST-EXEC: python %INPUT
+# @TEST-EXEC: python3 %INPUT
 
 from testsetup import testcase
 import SubnetTree

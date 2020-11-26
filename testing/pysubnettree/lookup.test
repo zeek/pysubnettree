@@ -1,6 +1,6 @@
 # Test that lookups match the correct entry.
 #
-# @TEST-EXEC: python %INPUT
+# @TEST-EXEC: python3 %INPUT
 
 from testsetup import testcase, ipv4binary, ipv6binary
 import SubnetTree

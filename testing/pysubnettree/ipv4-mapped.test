@@ -1,6 +1,6 @@
 # Tests using IPv4-mapped IPv6 addresses.
 #
-# @TEST-EXEC: python %INPUT
+# @TEST-EXEC: python3 %INPUT
 
 from testsetup import testcase
 import SubnetTree

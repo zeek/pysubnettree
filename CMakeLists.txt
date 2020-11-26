@@ -11,11 +11,13 @@ FindRequiredPackage(SWIG)
 FindRequiredPackage(PythonInterp)
 FindRequiredPackage(PythonDev)
 
-if ( SWIG_VERSION AND PYTHON_VERSION_STRING AND
-     SWIG_VERSION VERSION_LESS 1.3.30 AND
-     PYTHON_VERSION_STRING VERSION_GREATER 2.4 )
-    message("Found swig version: ${SWIG_VERSION}")
+if ( PYTHON_VERSION_STRING AND PYTHON_VERSION_STRING VERSION_LESS 3.5  )
     message("Found python version: ${PYTHON_VERSION_STRING}")
+    message(FATAL_ERROR "Python 3.5 or greater is required.")
+endif ()
+
+if ( SWIG_VERSION AND SWIG_VERSION VERSION_LESS 1.3.30 )
+    message("Found swig version: ${SWIG_VERSION}")
     message(FATAL_ERROR "Swig versions less than 1.3.30 are incompatible with "
                         "Python versions greater than or equal to 2.5, "
                         "upgrading your swig installation is recommended.")
