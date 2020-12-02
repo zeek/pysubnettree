@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6.3 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 project(PySubnetTree C CXX)
 include(cmake/CommonCMakeConfig.cmake)
 
