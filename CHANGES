@@ -1,4 +1,8 @@
 
+0.34-13 | 2020-12-02 11:09:48 -0800
+
+  * Update minimum required CMake to 3.5 (Jon Siwek, Corelight)
+
 0.34-11 | 2020-11-26 18:03:05 +0000
 
   * Update cmake submodule for changes related to Python 2 EOL (Jon Siwek, Corelight)
