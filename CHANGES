@@ -1,4 +1,8 @@
 
+0.34-16 | 2020-12-07 15:05:32 -0800
+
+  * Update CMake logic to prefer Python 3 over Python 2 (Jon Siwek, Corelight)
+
 0.34-13 | 2020-12-02 11:09:48 -0800
 
   * Update minimum required CMake to 3.5 (Jon Siwek, Corelight)
