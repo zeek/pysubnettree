@@ -8,6 +8,7 @@ include(cmake/CommonCMakeConfig.cmake)
 include(FindRequiredPackage)
 
 FindRequiredPackage(SWIG)
+list(APPEND Python_ADDITIONAL_VERSIONS 3)
 FindRequiredPackage(PythonInterp)
 FindRequiredPackage(PythonDev)
 
