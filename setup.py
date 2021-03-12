@@ -32,6 +32,17 @@ setup(name="pysubnettree",
             sources=["SubnetTree.cc", "patricia.c", "SubnetTree_wrap.cc"],
             depends=["include/SubnetTree.h", "include/patricia.h"],
             include_dirs=["include/"])
-        ]
+        ],
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Environment :: Console',
+        'License :: OSI Approved :: BSD License',
+        'Operating System :: POSIX :: Linux',
+        'Operating System :: POSIX :: BSD :: FreeBSD',
+        'Operating System :: MacOS :: MacOS X',
+        'Programming Language :: Python :: 3',
+        'Topic :: System :: Networking',
+        'Topic :: Utilities',
+    ],
 )
 
