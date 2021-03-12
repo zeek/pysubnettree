@@ -1,4 +1,10 @@
 
+0.35-4 | 2021-03-12 13:09:15 -0800
+
+  * GH-25: Add description of supported platforms to README (Jon Siwek, Corelight)
+
+  * Add trove classifiers to setup.py (Jon Siwek, Corelight)
+
 0.35 | 2020-12-07 15:05:57 -0800
 
   * Release 0.35.
