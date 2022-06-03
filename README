@@ -1,7 +1,7 @@
 ..	-*- mode: rst-mode -*-
 ..
 .. Version number is filled in automatically.
-.. |version| replace:: 0.35-4
+.. |version| replace:: 0.36
 
 ===============================================
 PySubnetTree - A Python Module for CIDR Lookups
