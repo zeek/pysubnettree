@@ -8,9 +8,9 @@ VERSION=`test -e VERSION && cat VERSION || cat ../VERSION`
 BUILD=build
 TGZ=pysubnettree-$(VERSION)
 
-all: SubnetTree_wrap.cpp
+all: SubnetTree_wrap.cc
 
-SubnetTree_wrap.cpp SubnetTree.py: SubnetTree.i include/SubnetTree.h
+SubnetTree_wrap.cc SubnetTree.py: SubnetTree.i include/SubnetTree.h
 	swig -c++ -python -Iinclude -o SubnetTree_wrap.cc SubnetTree.i
 
 clean:
