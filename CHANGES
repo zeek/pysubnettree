@@ -1,3 +1,11 @@
+0.36-15 | 2023-06-01 10:49:13 +0200
+
+  * Use new-style version numbers for setup.py (Tim Wojtulewicz, Corelight)
+
+  * Remove old travis CI configuration, add new Github workflow instead (Tim Wojtulewicz, Corelight)
+
+  * Update patricia files to match Zeek's newer version (Tim Wojtulewicz, Corelight)
+
 0.36-5 | 2022-12-15 10:57:11 -0700
 
   * Makefile: Fix .cc and .cpp confusion (Arne Welzel, Corelight)

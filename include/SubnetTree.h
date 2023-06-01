@@ -184,9 +184,12 @@ public:
 #endif
 
 private:
+
    PyObject* insert(int family, inx_addr subnet, unsigned short mask, PyObject * data);
    PyObject* remove(int family, inx_addr subnet, unsigned short mask);
    PyObject* lookup(int family, inx_addr subnet) const;
+
+   static void PatriciaDeleteFunction(void* data);
 
    patricia_tree_t* tree;
    bool binary_lookup_mode;
