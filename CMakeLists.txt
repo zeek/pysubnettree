@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 project(PySubnetTree C CXX)
 include(cmake/CommonCMakeConfig.cmake)
 
@@ -15,28 +15,17 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 ########################################################################
 ## Build Python Extension
 
-if ( ${CMAKE_VERSION} VERSION_EQUAL 3.13 OR
-     ${CMAKE_VERSION} VERSION_GREATER 3.13 )
-    cmake_policy(SET CMP0078 NEW)
-endif ()
-
-if ( ${CMAKE_VERSION} VERSION_EQUAL 3.14 OR
-     ${CMAKE_VERSION} VERSION_GREATER 3.14 )
-    cmake_policy(SET CMP0086 NEW)
-endif ()
+cmake_policy(SET CMP0078 NEW)
+cmake_policy(SET CMP0086 NEW)
 
 include(UseSWIG)
 
 set_source_files_properties(SubnetTree.i PROPERTIES CPLUSPLUS true)
 set(SWIG_MODULE_SubnetTree_EXTRA_DEPS include/SubnetTree.h)
 
-if ( CMAKE_VERSION VERSION_LESS 3.8.0 )
-    swig_add_module(SubnetTree python SubnetTree.i SubnetTree.cc patricia.c)
-else ()
-    swig_add_library(SubnetTree
-                     LANGUAGE python
-                     SOURCES SubnetTree.i SubnetTree.cc patricia.c)
-endif ()
+swig_add_library(SubnetTree
+                 LANGUAGE python
+                 SOURCES SubnetTree.i SubnetTree.cc patricia.c)
 
 swig_link_libraries(SubnetTree ${Python_LIBRARIES})
 set_source_files_properties(${swig_generated_file_fullname} SubnetTree.cc
@@ -53,14 +42,8 @@ endif ()
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/SubnetTree.py
         DESTINATION ${PY_MOD_INSTALL_DIR})
 
-if ( ${CMAKE_VERSION} VERSION_EQUAL 3.13 OR
-     ${CMAKE_VERSION} VERSION_GREATER 3.13 )
-    install(TARGETS SubnetTree
-            DESTINATION ${PY_MOD_INSTALL_DIR})
-else ()
-    install(TARGETS ${SWIG_MODULE_SubnetTree_REAL_NAME}
-            DESTINATION ${PY_MOD_INSTALL_DIR})
-endif ()
+install(TARGETS SubnetTree
+        DESTINATION ${PY_MOD_INSTALL_DIR})
 
 ########################################################################
 ## Build Summary
