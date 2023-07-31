@@ -5,33 +5,11 @@ include(cmake/CommonCMakeConfig.cmake)
 ########################################################################
 ## Dependency Configuration
 
-include(FindRequiredPackage)
-
-FindRequiredPackage(SWIG)
+find_package(SWIG 1.3.30 REQUIRED)
 list(APPEND Python_ADDITIONAL_VERSIONS 3)
-FindRequiredPackage(PythonInterp)
-FindRequiredPackage(PythonDev)
+find_package(Python 3.7 REQUIRED COMPONENTS Interpreter Development)
 
-if ( PYTHON_VERSION_STRING AND PYTHON_VERSION_STRING VERSION_LESS 3.5  )
-    message("Found python version: ${PYTHON_VERSION_STRING}")
-    message(FATAL_ERROR "Python 3.5 or greater is required.")
-endif ()
-
-if ( SWIG_VERSION AND SWIG_VERSION VERSION_LESS 1.3.30 )
-    message("Found swig version: ${SWIG_VERSION}")
-    message(FATAL_ERROR "Swig versions less than 1.3.30 are incompatible with "
-                        "Python versions greater than or equal to 2.5, "
-                        "upgrading your swig installation is recommended.")
-endif ()
-
-if (MISSING_PREREQS)
-    foreach (prereq ${MISSING_PREREQ_DESCS})
-        message(SEND_ERROR ${prereq})
-    endforeach ()
-    message(FATAL_ERROR "Configuration aborted due to missing prerequisites")
-endif ()
-
-include_directories(BEFORE ${PYTHON_INCLUDE_DIR})
+include_directories(BEFORE ${Python_INCLUDE_DIRS})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 ########################################################################
@@ -60,7 +38,7 @@ else ()
                      SOURCES SubnetTree.i SubnetTree.cc patricia.c)
 endif ()
 
-swig_link_libraries(SubnetTree ${PYTHON_LIBRARIES})
+swig_link_libraries(SubnetTree ${Python_LIBRARIES})
 set_source_files_properties(${swig_generated_file_fullname} SubnetTree.cc
                             PROPERTIES COMPILE_FLAGS -fno-strict-aliasing)
 
