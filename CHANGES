@@ -1,3 +1,7 @@
+0.37 | 2023-08-04 13:05:19 +0200
+
+  * Release 0.37.
+
 0.36-24 | 2023-08-04 13:01:39 +0200
 
   * Use devN style format in setup.py (Arne Welzel, Corelight)

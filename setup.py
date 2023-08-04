@@ -20,7 +20,7 @@ with open('README') as file:
     long_description = file.read()
 
 setup(name="pysubnettree",
-    version="0.36.dev24", # Filled in automatically.
+    version="0.37", # Filled in automatically.
     maintainer="The Zeek Project",
     maintainer_email="info@zeek.org",
     license="BSD",
