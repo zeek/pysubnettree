@@ -1,3 +1,11 @@
+0.36-24 | 2023-08-04 13:01:39 +0200
+
+  * Use devN style format in setup.py (Arne Welzel, Corelight)
+
+    Commit aa205cfa996d166ae54ce5fdcebaf4b310301a34 switched this to .postN
+    format, but update-changes only recognizes .devN, so switch to that in
+    order to make automatic updating of setup.py versions work again.
+
 0.36-23 | 2023-08-04 12:42:03 +0200
 
   * GH-15: GH-32: GH-33: SubnetTree: Update swig generated files (Arne Welzel, Corelight)
