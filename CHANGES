@@ -1,3 +1,7 @@
+0.36-23 | 2023-08-04 12:42:03 +0200
+
+  * GH-15: GH-32: GH-33: SubnetTree: Update swig generated files (Arne Welzel, Corelight)
+
 0.36-21 | 2023-08-02 11:25:16 -0700
 
   * Update cmake submodule to deprecate FindRequiredPackage (Tim Wojtulewicz, Corelight)

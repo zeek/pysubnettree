@@ -26,7 +26,6 @@ try:
 except TypeError:
     pass
 
-
 # Verify that trying to do lookups with non-string data types fails
 try:
     if None in t:  pass
@@ -45,6 +44,25 @@ try:
     testcase(False, "lookup of integer should fail")
 except TypeError:
     pass
+
+# Verify that using non-ascii unicode strings throw TypeError
+try:
+    if t["üpps"]:  pass
+    testcase(False, "lookup of non-ascii unicode should fail with TypeError")
+except TypeError:
+    pass
+
+try:
+    if "üpps" in t:  pass
+    testcase(False, "lookup of non-ascii unicode should fail with TypeError")
+except TypeError:
+    pass
+
+# Verify that overly large strings do not crash. Due to a misplaced
+# Py_DECREF() allocated memory may have been freed and pages unmapped.
+# Only triggers with "large strings".
+if "a" * 1024 * 1024 in t:
+    testcase(False, "should never pass, triggered crashes previously")
 
 # Verify that attempting to remove entry with wrong data type fails
 try:
