@@ -300,6 +300,51 @@ PyObject* SubnetTree::lookup(int family, inx_addr addr) const
     return data;
 }
 
+PyObject* SubnetTree::search_all(const char *cidr) const
+{
+    int family;
+    inx_addr subnet;
+    unsigned short mask;
+
+    if ( ! parse_cidr(cidr, &family, &subnet, &mask) ) {
+        PyErr_SetString(PyExc_ValueError, "Invalid CIDR.");
+        return 0;
+    }
+
+    prefix_t* sn = make_prefix();
+
+    if ( ! sn ) {
+        PyErr_SetString(PyExc_RuntimeError, "out of memory");
+        return 0;
+    }
+
+    bool res = set_prefix(sn, family, &subnet, mask);
+
+    if ( ! res ) {
+        Deref_Prefix(sn);
+        PyErr_SetString(PyExc_RuntimeError, "invalid subnet/prefix");
+        return 0;
+    }
+
+    patricia_node_t **outlist;
+    int n;
+    int result = patricia_search_all(tree, sn, &outlist, &n);
+    Deref_Prefix(sn);
+
+    if ( result == 0 )  {
+        return PyList_New(0);
+    }
+
+    PyObject* list = PyList_New(n);
+    for (int i = 0; i < n; i++) {
+        PyObject* data = (PyObject*)outlist[i]->data;
+        Py_INCREF(data);
+        PyList_SetItem(list, i, data);
+    }
+
+    return list;
+}
+
 PyObject* SubnetTree::prefixes(bool ipv4_native /*=false*/, bool with_len /*=true*/) const
 {
     char buf[INET6_ADDRSTRLEN];

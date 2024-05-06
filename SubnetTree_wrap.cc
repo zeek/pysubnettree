@@ -4320,6 +4320,40 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_SubnetTree_search_all(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SubnetTree *arg1 = (SubnetTree *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:SubnetTree_search_all",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SubnetTree, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SubnetTree_search_all" "', argument " "1"" of type '" "SubnetTree const *""'"); 
+  }
+  arg1 = reinterpret_cast< SubnetTree * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SubnetTree_search_all" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  result = (PyObject *)((SubnetTree const *)arg1)->search_all((char const *)arg2);
+  resultobj = result;
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_SubnetTree_prefixes__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SubnetTree *arg1 = (SubnetTree *) 0 ;
@@ -4929,6 +4963,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"SubnetTree_insert", _wrap_SubnetTree_insert, METH_VARARGS, NULL},
 	 { (char *)"SubnetTree_remove", _wrap_SubnetTree_remove, METH_VARARGS, NULL},
 	 { (char *)"SubnetTree_lookup", _wrap_SubnetTree_lookup, METH_VARARGS, NULL},
+	 { (char *)"SubnetTree_search_all", _wrap_SubnetTree_search_all, METH_VARARGS, NULL},
 	 { (char *)"SubnetTree_prefixes", _wrap_SubnetTree_prefixes, METH_VARARGS, NULL},
 	 { (char *)"SubnetTree_get_binary_lookup_mode", _wrap_SubnetTree_get_binary_lookup_mode, METH_VARARGS, NULL},
 	 { (char *)"SubnetTree_set_binary_lookup_mode", _wrap_SubnetTree_set_binary_lookup_mode, METH_VARARGS, NULL},

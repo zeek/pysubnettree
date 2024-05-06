@@ -88,6 +88,8 @@ public:
    PyObject* lookup(const char *cidr, int size) const;
    PyObject* lookup(unsigned long addr) const;
 
+   PyObject* search_all(const char *cidr) const;
+
    PyObject* prefixes(bool ipv4_native = false, bool with_len = true) const;
 
    bool get_binary_lookup_mode();
