@@ -3457,7 +3457,7 @@ SWIGINTERN PyObject *SubnetTree___getitem__(SubnetTree *self,char *cidr,int size
 
            PyObject* data = self->lookup(cidr, size);
            if ( ! data ) {
-               PyErr_SetString(PyExc_KeyError, cidr);
+               PyErr_SetObject(PyExc_KeyError, PyBytes_FromStringAndSize(cidr, size));
                return 0;
            }
 

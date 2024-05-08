@@ -40,8 +40,11 @@ def do_tests(binarymode):
     try:
         if t[v4("1.3.3.255")]:  pass
         testcase(False, "lookup should throw exception")
-    except KeyError:
-        pass
+    except KeyError as e:
+        # We expect a `KeyError` which reports the key. Since above address
+        # encodes to invalid unicode we'd expect to see the raw bytes as error
+        # message in binary mode.
+        assert str(e) == r"b'\x01\x03\x03\xff'" if binarymode else r"b'1.3.3.255'"
 
     try:
         if t[v6("1:3:3::3")]:  pass
