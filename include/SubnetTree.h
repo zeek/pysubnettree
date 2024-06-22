@@ -7,7 +7,7 @@ extern "C" {
 // If a function is supposed to accept 4-byte tuples as packet by
 // socket.inet_aton(), it needs to accept strings which contain 0s.
 // Therefore, we need a size parameter.
-%typemap(in) (char* cidr, int size) (PyObject* ascii)
+%typemap(in) (const char* cidr, int size) (PyObject* ascii)
 	%{
 	Py_ssize_t len;
 
@@ -49,17 +49,17 @@ extern "C" {
 #endif
 	%}
 
-%typemap(arginit) (char* cidr, int size)
+%typemap(arginit) (const char* cidr, int size)
 	{
 	ascii$argnum = NULL;
 	}
 
-%typemap(freearg) (char* cidr, int size)
+%typemap(freearg) (const char* cidr, int size)
 	{
 	Py_XDECREF(ascii$argnum);
 	}
 
-%typecheck(SWIG_TYPECHECK_STRING) (char* cidr, int size)
+%typecheck(SWIG_TYPECHECK_STRING) (const char* cidr, int size)
 	{
 	// The typemap above will check types and throw a type error when
 	// needed, so just let everything through.
@@ -88,7 +88,7 @@ public:
    PyObject* lookup(const char *cidr, int size) const;
    PyObject* lookup(unsigned long addr) const;
 
-   PyObject* search_all(const char *cidr) const;
+   PyObject* search_all(const char *cidr, int size) const;
 
    PyObject* prefixes(bool ipv4_native = false, bool with_len = true) const;
 
@@ -100,7 +100,7 @@ public:
    bool operator[](unsigned long addr) const { return lookup(addr); }
 #else
    %extend {
-       PyObject* __contains__(char *cidr, int size)
+       PyObject* __contains__(const char *cidr, int size)
        {
            if ( ! cidr ) {
                PyErr_SetString(PyExc_TypeError, "index must be string");
@@ -140,7 +140,7 @@ public:
                Py_RETURN_FALSE;
        }
 
-       PyObject* __getitem__(char *cidr, int size)
+       PyObject* __getitem__(const char *cidr, int size)
        {
            if ( ! cidr ) {
                PyErr_SetString(PyExc_TypeError, "index must be string");

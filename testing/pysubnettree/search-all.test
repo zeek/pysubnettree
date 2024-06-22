@@ -22,8 +22,8 @@ def do_tests(binarymode):
     t = SubnetTree.SubnetTree(binarymode)
 
     # Verify that searches when there are no items return empty
-    testcase(t.search_all("4.1.0.100") == [], "IPv4 empty search")
-    testcase(t.search_all("1:2:3:7::0:0:1") == [], "IPv6 empty search")
+    testcase(t.search_all(v4("4.1.0.100")) == [], "IPv4 empty search")
+    testcase(t.search_all(v6("1:2:3:7::0:0:1")) == [], "IPv6 empty search")
 
     t.insert("1.2.3.4/16", "Network 1.2.0.0/16")
     t["4.3.2.1/8"] = "Network 4.0.0.0/8"
@@ -33,12 +33,12 @@ def do_tests(binarymode):
     t["2:3::/32"] = "Network 2:3::/32"
 
     # Verify searches that return one or more items
-    testcase(t.search_all("4.1.0.100") == ["Network 4.0.0.0/8"], "IPv4 search")
-    testcase(t.search_all("1:2:3:7::0:0:1") == ["Network 1:2:3:7::/64", "Network 1:2::/32"], "IPv6 search")
+    testcase(t.search_all(v4("4.1.0.100")) == ["Network 4.0.0.0/8"], "IPv4 search")
+    testcase(t.search_all(v6("1:2:3:7::0:0:1")) == ["Network 1:2:3:7::/64", "Network 1:2::/32"], "IPv6 search")
 
     # Verify searches that should return no items
-    testcase(t.search_all("5.1.0.100") == [], "IPv4 search with no results")
-    testcase(t.search_all("4:2:3:7::0:0:1") == [], "IPv6 search with no results")
+    testcase(t.search_all(v4("5.1.0.100")) == [], "IPv4 search with no results")
+    testcase(t.search_all(v6("4:2:3:7::0:0:1")) == [], "IPv6 search with no results")
 
 
 do_tests(False)

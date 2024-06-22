@@ -300,13 +300,32 @@ PyObject* SubnetTree::lookup(int family, inx_addr addr) const
     return data;
 }
 
-PyObject* SubnetTree::search_all(const char *cidr) const
+PyObject* SubnetTree::search_all(const char *cidr, int size) const
 {
     int family;
     inx_addr subnet;
     unsigned short mask;
 
-    if ( ! parse_cidr(cidr, &family, &subnet, &mask) ) {
+    if ( binary_lookup_mode ) {
+        if ( size == 4 ) {
+            family = AF_INET;
+            mask = 32;
+        }
+
+        else if ( size == 16 ) {
+            family = AF_INET6;
+            mask = 128;
+        }
+
+        else {
+            PyErr_SetString(PyExc_ValueError, "Invalid binary address.  Binary addresses are 4 or 16 bytes.");
+            return 0;
+        }
+
+        memcpy(&subnet, cidr, size);
+    }
+
+    else if ( ! parse_cidr(cidr, &family, &subnet, &mask) ) {
         PyErr_SetString(PyExc_ValueError, "Invalid CIDR.");
         return 0;
     }
