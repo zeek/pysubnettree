@@ -48,6 +48,8 @@ A simple example which associates CIDR prefixes with strings::
     Network 1
     >>> print("10.20.1.1" in t)
     False
+    >>> t.search_all("10.1.42.1")
+    ['Network 1, Subnet 42', 'Network 1']
     >>> try:
     ...     print(t["10.20.1.1"])
     ... except KeyError as err:
@@ -65,6 +67,8 @@ PySubnetTree also supports IPv6 addresses and prefixes::
     Company 1, Site 1
     >>> t["2001:db8:fe:1234::"]
     Company 1
+    >>> t.search_all("2001:db8:4000:abcd::1")
+    ['Company 1, Site 1', 'Company 1']
 
 
 By default, CIDR prefixes and IP addresses are given as strings.
