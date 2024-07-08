@@ -146,6 +146,9 @@ class SubnetTree(_object):
     def lookup(self, *args):
         return _SubnetTree.SubnetTree_lookup(self, *args)
 
+    def search_all(self, cidr):
+        return _SubnetTree.SubnetTree_search_all(self, cidr)
+
     def prefixes(self, ipv4_native=False, with_len=True):
         return _SubnetTree.SubnetTree_prefixes(self, ipv4_native, with_len)
 

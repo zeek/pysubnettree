@@ -3459,29 +3459,13 @@ SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
 }
 
 
-SWIGINTERN int
-SWIG_AsVal_int (PyObject * obj, int *val)
-{
-  long v;
-  int res = SWIG_AsVal_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v < INT_MIN || v > INT_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< int >(v);
-    }
-  }  
-  return res;
-}
-
-
 SWIGINTERNINLINE PyObject*
   SWIG_From_bool  (bool value)
 {
   return PyBool_FromLong(value ? 1 : 0);
 }
 
-SWIGINTERN PyObject *SubnetTree___contains____SWIG_0(SubnetTree *self,char *cidr,int size){
+SWIGINTERN PyObject *SubnetTree___contains____SWIG_0(SubnetTree *self,char const *cidr,int size){
            if ( ! cidr ) {
                PyErr_SetString(PyExc_TypeError, "index must be string");
                return 0;
@@ -3517,7 +3501,7 @@ SWIGINTERN PyObject *SubnetTree___contains____SWIG_1(SubnetTree *self,unsigned l
            else
                Py_RETURN_FALSE;
        }
-SWIGINTERN PyObject *SubnetTree___getitem__(SubnetTree *self,char *cidr,int size){
+SWIGINTERN PyObject *SubnetTree___getitem__(SubnetTree *self,char const *cidr,int size){
            if ( ! cidr ) {
                PyErr_SetString(PyExc_TypeError, "index must be string");
                return 0;
@@ -4197,38 +4181,70 @@ SWIGINTERN PyObject *_wrap_SubnetTree_lookup__SWIG_0(PyObject *SWIGUNUSEDPARM(se
   int arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int res2 ;
-  char *buf2 = 0 ;
-  int alloc2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
+  PyObject *ascii2 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   PyObject *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:SubnetTree_lookup",&obj0,&obj1,&obj2)) SWIG_fail;
+  {
+    ascii2 = NULL;
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:SubnetTree_lookup",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SubnetTree, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SubnetTree_lookup" "', argument " "1"" of type '" "SubnetTree const *""'"); 
   }
   arg1 = reinterpret_cast< SubnetTree * >(argp1);
-  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SubnetTree_lookup" "', argument " "2"" of type '" "char const *""'");
+  
+  Py_ssize_t len;
+  
+#if PY_MAJOR_VERSION >= 3
+  if ( PyUnicode_Check(obj1) )
+  {
+    ascii2 = PyUnicode_AsASCIIString(obj1);
+    
+    if ( ! ascii2 )
+    {
+      PyErr_SetString(PyExc_TypeError, "Expected a ASCII encodable string or bytes");
+      return NULL;
+    }
+    
+    PyBytes_AsStringAndSize(ascii2, &arg2, &len);
+    arg3 = len;
   }
-  arg2 = reinterpret_cast< char * >(buf2);
-  ecode3 = SWIG_AsVal_int(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "SubnetTree_lookup" "', argument " "3"" of type '" "int""'");
-  } 
-  arg3 = static_cast< int >(val3);
+  else if ( PyBytes_Check(obj1) )
+  {
+    PyBytes_AsStringAndSize(obj1, &arg2, &len);
+    arg3 = len;
+  }
+  else
+  {
+    PyErr_SetString(PyExc_TypeError, "Expected a string or bytes");
+    return NULL;
+  }
+#else
+  if ( ! PyString_Check(obj1) )
+  {
+    PyErr_SetString(PyExc_TypeError, "Expected a string or bytes");
+    return NULL;
+  }
+  else
+  {
+    PyString_AsStringAndSize(obj1, &arg2, &len);
+    arg3 = len;
+  }
+#endif
+  
   result = (PyObject *)((SubnetTree const *)arg1)->lookup((char const *)arg2,arg3);
   resultobj = result;
-  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  {
+    Py_XDECREF(ascii2);
+  }
   return resultobj;
 fail:
-  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  {
+    Py_XDECREF(ascii2);
+  }
   return NULL;
 }
 
@@ -4266,14 +4282,14 @@ fail:
 
 SWIGINTERN PyObject *_wrap_SubnetTree_lookup(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[4] = {
+  PyObject *argv[3] = {
     0
   };
   Py_ssize_t ii;
   
   if (!PyTuple_Check(args)) SWIG_fail;
   argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
     argv[ii] = PyTuple_GET_ITEM(args,ii);
   }
   if (argc == 2) {
@@ -4291,22 +4307,22 @@ SWIGINTERN PyObject *_wrap_SubnetTree_lookup(PyObject *self, PyObject *args) {
       }
     }
   }
-  if (argc == 3) {
+  if (argc == 2) {
     int _v;
     void *vptr = 0;
     int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_SubnetTree, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
-      _v = SWIG_CheckState(res);
+      {
+        // The typemap above will check types and throw a type error when
+        // needed, so just let everything through.
+        _v = 1;
+      }
       if (_v) {
-        {
-          int res = SWIG_AsVal_int(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v) {
+        if (argc <= 2) {
           return _wrap_SubnetTree_lookup__SWIG_0(self, args);
         }
+        return _wrap_SubnetTree_lookup__SWIG_0(self, args);
       }
     }
   }
@@ -4317,6 +4333,81 @@ fail:
     "    SubnetTree::lookup(char const *,int) const\n"
     "    SubnetTree::lookup(unsigned long) const\n");
   return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_SubnetTree_search_all(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SubnetTree *arg1 = (SubnetTree *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *ascii2 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject *result = 0 ;
+  
+  {
+    ascii2 = NULL;
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:SubnetTree_search_all",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SubnetTree, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SubnetTree_search_all" "', argument " "1"" of type '" "SubnetTree const *""'"); 
+  }
+  arg1 = reinterpret_cast< SubnetTree * >(argp1);
+  
+  Py_ssize_t len;
+  
+#if PY_MAJOR_VERSION >= 3
+  if ( PyUnicode_Check(obj1) )
+  {
+    ascii2 = PyUnicode_AsASCIIString(obj1);
+    
+    if ( ! ascii2 )
+    {
+      PyErr_SetString(PyExc_TypeError, "Expected a ASCII encodable string or bytes");
+      return NULL;
+    }
+    
+    PyBytes_AsStringAndSize(ascii2, &arg2, &len);
+    arg3 = len;
+  }
+  else if ( PyBytes_Check(obj1) )
+  {
+    PyBytes_AsStringAndSize(obj1, &arg2, &len);
+    arg3 = len;
+  }
+  else
+  {
+    PyErr_SetString(PyExc_TypeError, "Expected a string or bytes");
+    return NULL;
+  }
+#else
+  if ( ! PyString_Check(obj1) )
+  {
+    PyErr_SetString(PyExc_TypeError, "Expected a string or bytes");
+    return NULL;
+  }
+  else
+  {
+    PyString_AsStringAndSize(obj1, &arg2, &len);
+    arg3 = len;
+  }
+#endif
+  
+  result = (PyObject *)((SubnetTree const *)arg1)->search_all((char const *)arg2,arg3);
+  resultobj = result;
+  {
+    Py_XDECREF(ascii2);
+  }
+  return resultobj;
+fail:
+  {
+    Py_XDECREF(ascii2);
+  }
+  return NULL;
 }
 
 
@@ -4661,7 +4752,7 @@ SWIGINTERN PyObject *_wrap_SubnetTree___contains____SWIG_0(PyObject *SWIGUNUSEDP
   }
 #endif
   
-  result = (PyObject *)SubnetTree___contains____SWIG_0(arg1,arg2,arg3);
+  result = (PyObject *)SubnetTree___contains____SWIG_0(arg1,(char const *)arg2,arg3);
   resultobj = result;
   {
     Py_XDECREF(ascii2);
@@ -4756,7 +4847,7 @@ SWIGINTERN PyObject *_wrap_SubnetTree___contains__(PyObject *self, PyObject *arg
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'SubnetTree___contains__'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    SubnetTree::__contains__(char *,int)\n"
+    "    SubnetTree::__contains__(char const *,int)\n"
     "    SubnetTree::__contains__(unsigned long)\n");
   return 0;
 }
@@ -4823,7 +4914,7 @@ SWIGINTERN PyObject *_wrap_SubnetTree___getitem__(PyObject *SWIGUNUSEDPARM(self)
   }
 #endif
   
-  result = (PyObject *)SubnetTree___getitem__(arg1,arg2,arg3);
+  result = (PyObject *)SubnetTree___getitem__(arg1,(char const *)arg2,arg3);
   resultobj = result;
   {
     Py_XDECREF(ascii2);
@@ -4929,6 +5020,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"SubnetTree_insert", _wrap_SubnetTree_insert, METH_VARARGS, NULL},
 	 { (char *)"SubnetTree_remove", _wrap_SubnetTree_remove, METH_VARARGS, NULL},
 	 { (char *)"SubnetTree_lookup", _wrap_SubnetTree_lookup, METH_VARARGS, NULL},
+	 { (char *)"SubnetTree_search_all", _wrap_SubnetTree_search_all, METH_VARARGS, NULL},
 	 { (char *)"SubnetTree_prefixes", _wrap_SubnetTree_prefixes, METH_VARARGS, NULL},
 	 { (char *)"SubnetTree_get_binary_lookup_mode", _wrap_SubnetTree_get_binary_lookup_mode, METH_VARARGS, NULL},
 	 { (char *)"SubnetTree_set_binary_lookup_mode", _wrap_SubnetTree_set_binary_lookup_mode, METH_VARARGS, NULL},
