@@ -1,13 +1,13 @@
 #! /usr/bin/env python3
 
-import sys
 import os
 
 cflags = os.environ.get("CFLAGS", "")
 os.environ["CFLAGS"] = cflags + " -fno-strict-aliasing"
 
-from setuptools import setup
 from distutils.core import Extension
+
+from setuptools import setup
 
 setup(
     version="0.37.dev5",  # Filled in automatically.

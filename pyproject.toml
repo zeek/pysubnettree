@@ -32,3 +32,6 @@ email = "info@zeek.org"
 
 [tool.ruff]
 exclude = ["SubnetTree.py"]
+
+[tool.ruff.lint]
+select = ["C4", "F", "I", "ISC", "UP"]

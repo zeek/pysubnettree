@@ -1,4 +1,5 @@
-import sys, socket
+import socket
+import sys
 
 # Keep track of the test case number so that any error message is more useful.
 testnum = 0
@@ -9,7 +10,7 @@ def testcase(success, errmsg):
     testnum += 1
 
     if not success:
-        sys.stderr.write("Test #%d: %s\n" % (testnum, errmsg))
+        sys.stderr.write(f"Test #{testnum}: {errmsg}\n")
         sys.exit(1)
 
 
