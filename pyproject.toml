@@ -29,3 +29,6 @@ Repository = "https://github.com/zeek/pysubnettree"
 [[project.maintainers]]
 name = "The Zeek Team"
 email = "info@zeek.org"
+
+[tool.ruff]
+exclude = ["SubnetTree.py"]

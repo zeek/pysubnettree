@@ -10,13 +10,15 @@ from setuptools import setup
 from distutils.core import Extension
 
 setup(
-    version="0.37.dev5", # Filled in automatically.
-    py_modules=['SubnetTree'],
+    version="0.37.dev5",  # Filled in automatically.
+    py_modules=["SubnetTree"],
     url="https://github.com/zeek/pysubnettree",
-    ext_modules = [
-        Extension("_SubnetTree",
+    ext_modules=[
+        Extension(
+            "_SubnetTree",
             sources=["SubnetTree.cc", "patricia.c", "SubnetTree_wrap.cc"],
             depends=["include/SubnetTree.h", "include/patricia.h"],
-            include_dirs=["include/"])
-        ],
+            include_dirs=["include/"],
+        )
+    ],
 )

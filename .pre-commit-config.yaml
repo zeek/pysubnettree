@@ -8,3 +8,8 @@ repos:
         exclude: (^testing/Baseline|SubnetTree.py|SubnetTree_wrap.cc)
       - id: end-of-file-fixer
         exclude: (^testing/Baseline|SubnetTree.py|SubnetTree_wrap.cc)
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.1
+    hooks:
+      - id: ruff-format
