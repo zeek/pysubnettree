@@ -7,7 +7,7 @@ include(cmake/CommonCMakeConfig.cmake)
 
 find_package(SWIG 1.3.30 REQUIRED)
 list(APPEND Python_ADDITIONAL_VERSIONS 3)
-find_package(Python 3.5 REQUIRED COMPONENTS Interpreter Development)
+find_package(Python 3.9 REQUIRED COMPONENTS Interpreter Development)
 
 include_directories(BEFORE ${Python_INCLUDE_DIRS})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
