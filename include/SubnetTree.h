@@ -69,130 +69,124 @@ extern "C" {
 #endif
 
 typedef union _inx_addr {
-        struct in_addr sin;
-        struct in6_addr sin6;
+    struct in_addr sin;
+    struct in6_addr sin6;
 } inx_addr;
 
-class SubnetTree
-{
+class SubnetTree {
 public:
-   SubnetTree(bool binary_lookup_mode = false);
-   ~SubnetTree();
+    SubnetTree(bool binary_lookup_mode = false);
+    ~SubnetTree();
 
-   PyObject* insert(const char *cidr, PyObject* data = 0);
-   PyObject* insert(unsigned long subnet, unsigned short mask, PyObject* data = 0);
+    PyObject* insert(const char* cidr, PyObject* data = 0);
+    PyObject* insert(unsigned long subnet, unsigned short mask, PyObject* data = 0);
 
-   PyObject* remove(const char *cidr);
-   PyObject* remove(unsigned long subnet, unsigned short mask);
+    PyObject* remove(const char* cidr);
+    PyObject* remove(unsigned long subnet, unsigned short mask);
 
-   PyObject* lookup(const char *cidr, int size) const;
-   PyObject* lookup(unsigned long addr) const;
+    PyObject* lookup(const char* cidr, int size) const;
+    PyObject* lookup(unsigned long addr) const;
 
-   PyObject* search_all(const char *cidr, int size) const;
+    PyObject* search_all(const char* cidr, int size) const;
 
-   PyObject* prefixes(bool ipv4_native = false, bool with_len = true) const;
+    PyObject* prefixes(bool ipv4_native = false, bool with_len = true) const;
 
-   bool get_binary_lookup_mode();
-   void set_binary_lookup_mode(bool binary_lookup_mode = true);
+    bool get_binary_lookup_mode();
+    void set_binary_lookup_mode(bool binary_lookup_mode = true);
 
 #ifndef SWIG
-   bool operator[](const char* addr) const { return lookup(addr, strlen(addr)); }
-   bool operator[](unsigned long addr) const { return lookup(addr); }
+    bool operator[](const char* addr) const { return lookup(addr, strlen(addr)); }
+    bool operator[](unsigned long addr) const { return lookup(addr); }
 #else
-   %extend {
-       PyObject* __contains__(const char *cidr, int size)
-       {
-           if ( ! cidr ) {
-               PyErr_SetString(PyExc_TypeError, "index must be string");
-               return 0;
-           }
+    // clang-format wants to insert a space after the % on the next line, which breaks
+    // SWIG's parsing of it.
+    // clang-format off
+    %extend {
+        // clang-format on
+        PyObject* __contains__(const char* cidr, int size) {
+            if ( ! cidr ) {
+                PyErr_SetString(PyExc_TypeError, "index must be string");
+                return 0;
+            }
 
-           PyObject* obj = self->lookup(cidr, size);
-           if ( obj )
-               {
-               Py_DECREF(obj);
-               }
+            PyObject* obj = self->lookup(cidr, size);
+            if ( obj ) {
+                Py_DECREF(obj);
+            }
 
-           if ( PyErr_Occurred() )
-               return 0;
+            if ( PyErr_Occurred() )
+                return 0;
 
-           if ( obj != 0 )
-               Py_RETURN_TRUE;
-           else
-               Py_RETURN_FALSE;
-       }
+            if ( obj != 0 )
+                Py_RETURN_TRUE;
+            else
+                Py_RETURN_FALSE;
+        }
 
-       PyObject* __contains__(unsigned long addr)
-       {
-           PyObject* obj = self->lookup(addr);
+        PyObject* __contains__(unsigned long addr) {
+            PyObject* obj = self->lookup(addr);
 
-           if ( obj )
-               {
-               Py_DECREF(obj);
-               }
+            if ( obj ) {
+                Py_DECREF(obj);
+            }
 
-           if ( PyErr_Occurred() )
-               return 0;
+            if ( PyErr_Occurred() )
+                return 0;
 
-           if ( obj != 0 )
-               Py_RETURN_TRUE;
-           else
-               Py_RETURN_FALSE;
-       }
+            if ( obj != 0 )
+                Py_RETURN_TRUE;
+            else
+                Py_RETURN_FALSE;
+        }
 
-       PyObject* __getitem__(const char *cidr, int size)
-       {
-           if ( ! cidr ) {
-               PyErr_SetString(PyExc_TypeError, "index must be string");
-               return 0;
-           }
+        PyObject* __getitem__(const char* cidr, int size) {
+            if ( ! cidr ) {
+                PyErr_SetString(PyExc_TypeError, "index must be string");
+                return 0;
+            }
 
-           PyObject* data = self->lookup(cidr, size);
-           if ( ! data ) {
-               PyErr_SetObject(PyExc_KeyError, PyBytes_FromStringAndSize(cidr, size));
-               return 0;
-           }
+            PyObject* data = self->lookup(cidr, size);
+            if ( ! data ) {
+                PyErr_SetObject(PyExc_KeyError, PyBytes_FromStringAndSize(cidr, size));
+                return 0;
+            }
 
-           return data;
-       }
+            return data;
+        }
 
-       PyObject*  __setitem__(const char* cidr, PyObject* data)
-       {
-           if ( ! cidr ) {
-               PyErr_SetString(PyExc_TypeError, "index must be string");
-               return 0;
-           }
+        PyObject* __setitem__(const char* cidr, PyObject* data) {
+            if ( ! cidr ) {
+                PyErr_SetString(PyExc_TypeError, "index must be string");
+                return 0;
+            }
 
-           if ( self->insert(cidr, data) )
-               Py_RETURN_TRUE;
-           else
-               return 0;
-       }
+            if ( self->insert(cidr, data) )
+                Py_RETURN_TRUE;
+            else
+                return 0;
+        }
 
-       PyObject* __delitem__(const char* cidr)
-       {
-           if ( ! cidr ) {
-               PyErr_SetString(PyExc_TypeError, "index must be string");
-               return 0;
-           }
+        PyObject* __delitem__(const char* cidr) {
+            if ( ! cidr ) {
+                PyErr_SetString(PyExc_TypeError, "index must be string");
+                return 0;
+            }
 
-           if ( self->remove(cidr) )
-               Py_RETURN_TRUE;
-           else
-               return 0;
-       }
-
-   }
+            if ( self->remove(cidr) )
+                Py_RETURN_TRUE;
+            else
+                return 0;
+        }
+    }
 #endif
 
 private:
+    PyObject* insert(int family, inx_addr subnet, unsigned short mask, PyObject* data);
+    PyObject* remove(int family, inx_addr subnet, unsigned short mask);
+    PyObject* lookup(int family, inx_addr subnet) const;
 
-   PyObject* insert(int family, inx_addr subnet, unsigned short mask, PyObject * data);
-   PyObject* remove(int family, inx_addr subnet, unsigned short mask);
-   PyObject* lookup(int family, inx_addr subnet) const;
+    static void PatriciaDeleteFunction(void* data);
 
-   static void PatriciaDeleteFunction(void* data);
-
-   patricia_tree_t* tree;
-   bool binary_lookup_mode;
+    patricia_tree_t* tree;
+    bool binary_lookup_mode;
 };
