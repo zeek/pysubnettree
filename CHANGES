@@ -349,7 +349,7 @@
 0.17-16 | 2012-07-02 14:53:05 -0700
 
   * Cleanup and update of SubnetTree_wrap.cc file. (Daniel Thayer)
-    
+
   * Fix compile warnings and dependencies of swig-generated files. (Jon Siwek)
 
   * Fix typos. (Daniel Thayer)
@@ -357,7 +357,7 @@
 0.17-8 | 2012-04-09 15:36:47 -0700
 
   * pysubnettree now supports IPv6 addresses and prefixes. (Henry
-    Stern, updated by Daniel Thayer). 
+    Stern, updated by Daniel Thayer).
 
   * SubnetTree now have a binary mode as well in in which single
     addresses are passed in the form of packed binary strings as,
@@ -404,4 +404,3 @@
   * Cleanup, and converting README to REST. (Robin Sommer)
 
   * Initial import to git. (Robin Sommer)
-

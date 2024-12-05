@@ -29,4 +29,3 @@ t.set_binary_lookup_mode(True)
 # Verify binary mode lookups work for entries added when binary mode was off
 testcase(t[ipv4binary("11.11.2.255")] == "IPv4 added", "lookup should work")
 testcase(ipv6binary("1:2:3:4::5") in t, "lookup should work")
-

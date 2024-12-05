@@ -16,4 +16,3 @@ def ipv4binary(ipstr):
 
 def ipv6binary(ipstr):
     return socket.inet_pton(socket.AF_INET6, ipstr)
-
