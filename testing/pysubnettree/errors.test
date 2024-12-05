@@ -32,14 +32,14 @@ try:
     testcase(False, "None should not match anything")
 except TypeError:
     pass
- 
-try: 
+
+try:
     if t[None]:  pass
     testcase(False, "lookup of None should fail")
 except TypeError:
     pass
 
-try: 
+try:
     if t[42]:  pass
     testcase(False, "lookup of integer should fail")
 except TypeError:
@@ -120,4 +120,3 @@ except KeyError:
 
 # Some IPv4 addrs in binary form have same value as a 4-byte IPv6 string
 testcase(t[ipv4binary("49.58.58.50")] == "Network 1::/64", "IPv4 binary lookup")
-

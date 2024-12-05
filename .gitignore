@@ -2,3 +2,5 @@ pysubnettree-*.tar.gz
 build
 pysubnettree.egg-info
 dist
+.cache
+_SubnetTree.cpython-*.so

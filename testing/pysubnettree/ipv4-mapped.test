@@ -21,4 +21,3 @@ testcase("0.1.2.3" in t, "first IPv4 octet of IPv4 is zero")
 testcase("1:2:3:4::5" not in t, "first IPv4 octet of IPv6 not zero")
 testcase("::ffff:197.44.42.34" not in t, "first v4 octet of mapped-v4 not 0")
 testcase("::ffff:0.44.42.34" in t, "first v4 octet of mapped-v4 is 0")
-

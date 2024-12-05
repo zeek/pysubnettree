@@ -49,4 +49,3 @@ testcase(t.get_binary_lookup_mode(), "binary lookup mode should be True")
 t = SubnetTree.SubnetTree(True)
 t.set_binary_lookup_mode()
 testcase(t.get_binary_lookup_mode(), "binary lookup mode should be True")
-

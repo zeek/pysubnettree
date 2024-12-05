@@ -1,27 +1,23 @@
 #include "SubnetTree.h"
 
-#include <memory.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <arpa/inet.h>
-#include <sys/types.h>
 #include <errno.h>
+#include <memory.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
 
 static PyObject* dummy = Py_BuildValue("s", "<dummy string>");
 
-const uint8_t v4_mapped_prefix[12] = { 0, 0, 0, 0,
-                                       0, 0, 0, 0,
-                                       0, 0, 0xff, 0xff };
+const uint8_t v4_mapped_prefix[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xff, 0xff};
 
-inline static prefix_t* make_prefix()
-{
-    prefix_t* rval = (prefix_t*) malloc(sizeof(prefix_t));
+inline static prefix_t* make_prefix() {
+    prefix_t* rval = (prefix_t*)malloc(sizeof(prefix_t));
     rval->ref_count = 1;
     return rval;
 }
 
-inline static bool set_prefix(prefix_t* subnet, int family, inx_addr* addr, unsigned int width)
-{
+inline static bool set_prefix(prefix_t* subnet, int family, inx_addr* addr, unsigned int width) {
     if ( ! (family == AF_INET || family == AF_INET6) )
         return false;
 
@@ -31,11 +27,10 @@ inline static bool set_prefix(prefix_t* subnet, int family, inx_addr* addr, unsi
     if ( family == AF_INET6 && width > 128 )
         return false;
 
-    if ( family == AF_INET )
-        {
+    if ( family == AF_INET ) {
         memcpy(&subnet->add.sin6, v4_mapped_prefix, sizeof(v4_mapped_prefix));
         memcpy(&subnet->add.sin6.s6_addr[12], addr, sizeof(in_addr));
-        }
+    }
 
     else if ( family == AF_INET6 )
         memcpy(&subnet->add.sin6, addr, sizeof(subnet->add.sin6));
@@ -46,17 +41,16 @@ inline static bool set_prefix(prefix_t* subnet, int family, inx_addr* addr, unsi
     return true;
 }
 
-inline static bool parse_cidr(const char *cidr, int *family, inx_addr *subnet, unsigned short *mask)
-{
+inline static bool parse_cidr(const char* cidr, int* family, inx_addr* subnet, unsigned short* mask) {
     char buffer[40];
-    const char *addr_str = 0;
-    const char *mask_str = 0;
-    char *endptr;
+    const char* addr_str = 0;
+    const char* mask_str = 0;
+    char* endptr;
 
     if ( ! cidr )
         return false;
 
-    const char *slash = strchr(cidr, '/');
+    const char* slash = strchr(cidr, '/');
 
     if ( slash ) {
         int len = slash - cidr < 40 ? slash - cidr : 39;
@@ -101,24 +95,16 @@ inline static bool parse_cidr(const char *cidr, int *family, inx_addr *subnet, u
     return true;
 }
 
-void SubnetTree::PatriciaDeleteFunction(void* data)
-{
-    Py_DECREF(static_cast<PyObject*>(data));
-}
+void SubnetTree::PatriciaDeleteFunction(void* data) { Py_DECREF(static_cast<PyObject*>(data)); }
 
-SubnetTree::SubnetTree(bool arg_binary_lookup_mode)
-{
+SubnetTree::SubnetTree(bool arg_binary_lookup_mode) {
     tree = New_Patricia(128);
     binary_lookup_mode = arg_binary_lookup_mode;
 }
 
-SubnetTree::~SubnetTree()
-{
-    Destroy_Patricia(tree, SubnetTree::PatriciaDeleteFunction);
-}
+SubnetTree::~SubnetTree() { Destroy_Patricia(tree, SubnetTree::PatriciaDeleteFunction); }
 
-PyObject* SubnetTree::insert(const char *cidr, PyObject* data)
-{
+PyObject* SubnetTree::insert(const char* cidr, PyObject* data) {
     int family;
     inx_addr subnet;
     unsigned short mask;
@@ -131,16 +117,14 @@ PyObject* SubnetTree::insert(const char *cidr, PyObject* data)
     return insert(family, subnet, mask, data);
 }
 
-PyObject* SubnetTree::insert(unsigned long subnet, unsigned short mask, PyObject* data)
-{
+PyObject* SubnetTree::insert(unsigned long subnet, unsigned short mask, PyObject* data) {
     inx_addr subnet_addr;
-    memcpy (&subnet_addr, &subnet, sizeof(subnet));
+    memcpy(&subnet_addr, &subnet, sizeof(subnet));
 
     return insert(AF_INET, subnet_addr, mask, data);
 }
 
-PyObject* SubnetTree::insert(int family, inx_addr subnet, unsigned short mask, PyObject * data)
-{
+PyObject* SubnetTree::insert(int family, inx_addr subnet, unsigned short mask, PyObject* data) {
     prefix_t* sn = make_prefix();
 
     if ( ! sn ) {
@@ -173,8 +157,7 @@ PyObject* SubnetTree::insert(int family, inx_addr subnet, unsigned short mask, P
     Py_RETURN_TRUE;
 }
 
-PyObject* SubnetTree::remove(const char *cidr)
-{
+PyObject* SubnetTree::remove(const char* cidr) {
     int family;
     inx_addr subnet;
     unsigned short mask;
@@ -187,16 +170,14 @@ PyObject* SubnetTree::remove(const char *cidr)
     return remove(family, subnet, mask);
 }
 
-PyObject* SubnetTree::remove(unsigned long addr, unsigned short mask)
-{
+PyObject* SubnetTree::remove(unsigned long addr, unsigned short mask) {
     inx_addr subnet_addr;
     memcpy(&subnet_addr, &addr, sizeof(addr));
 
     return remove(AF_INET, subnet_addr, mask);
 }
 
-PyObject* SubnetTree::remove(int family, inx_addr addr, unsigned short mask)
-{
+PyObject* SubnetTree::remove(int family, inx_addr addr, unsigned short mask) {
     prefix_t* subnet = make_prefix();
 
     if ( ! subnet ) {
@@ -231,8 +212,7 @@ PyObject* SubnetTree::remove(int family, inx_addr addr, unsigned short mask)
         Py_RETURN_FALSE;
 }
 
-PyObject* SubnetTree::lookup(const char *cidr, int size) const
-{
+PyObject* SubnetTree::lookup(const char* cidr, int size) const {
     int family;
     inx_addr subnet;
     unsigned short mask;
@@ -262,16 +242,14 @@ PyObject* SubnetTree::lookup(const char *cidr, int size) const
     }
 }
 
-PyObject* SubnetTree::lookup(unsigned long addr) const
-{
+PyObject* SubnetTree::lookup(unsigned long addr) const {
     inx_addr addr_addr;
     memcpy(&addr_addr, &addr, sizeof(addr));
 
     return lookup(AF_INET, addr_addr);
 }
 
-PyObject* SubnetTree::lookup(int family, inx_addr addr) const
-{
+PyObject* SubnetTree::lookup(int family, inx_addr addr) const {
     prefix_t* subnet = make_prefix();
 
     if ( ! subnet ) {
@@ -300,8 +278,7 @@ PyObject* SubnetTree::lookup(int family, inx_addr addr) const
     return data;
 }
 
-PyObject* SubnetTree::search_all(const char *cidr, int size) const
-{
+PyObject* SubnetTree::search_all(const char* cidr, int size) const {
     int family;
     inx_addr subnet;
     unsigned short mask;
@@ -345,13 +322,13 @@ PyObject* SubnetTree::search_all(const char *cidr, int size) const
         return 0;
     }
 
-    patricia_node_t **outlist = nullptr;
+    patricia_node_t** outlist = nullptr;
     int n;
-    int result = patricia_search_all(tree, sn, &outlist, &n);
+    patricia_search_all(tree, sn, &outlist, &n);
     Deref_Prefix(sn);
 
     PyObject* list = PyList_New(n);
-    for (int i = 0; i < n; i++) {
+    for ( int i = 0; i < n; i++ ) {
         PyObject* data = (PyObject*)outlist[i]->data;
         Py_INCREF(data);
         PyList_SetItem(list, i, data);
@@ -362,16 +339,15 @@ PyObject* SubnetTree::search_all(const char *cidr, int size) const
     return list;
 }
 
-PyObject* SubnetTree::prefixes(bool ipv4_native /*=false*/, bool with_len /*=true*/) const
-{
+PyObject* SubnetTree::prefixes(bool ipv4_native /*=false*/, bool with_len /*=true*/) const {
     char buf[INET6_ADDRSTRLEN];
     char buffer[64];
     bool wrote_buffer;
     PyObject* set = PySet_New(NULL);
 
-    patricia_node_t *node;
+    patricia_node_t* node;
 
-    PATRICIA_WALK (tree->head, node) {
+    PATRICIA_WALK(tree->head, node) {
         prefix_t* pf = node->prefix;
         PyObject* pstr = NULL;
 
@@ -382,7 +358,7 @@ PyObject* SubnetTree::prefixes(bool ipv4_native /*=false*/, bool with_len /*=tru
             // https://en.wikipedia.org/wiki/IPv6#IPv4-mapped_IPv6_addresses)
             // We'll check the first 12 bytes (96 bits) of the stored address
             // to see if they match v4_mapped_prefix.
-            uint8_t* addrstart = (uint8_t*) &pf->add.sin6;
+            uint8_t* addrstart = (uint8_t*)&pf->add.sin6;
 
             if ( memcmp(&v4_mapped_prefix, addrstart, 12) == 0 ) {
                 // Skip over the mapped-prefix to the IPV4 addr part. And we
@@ -391,16 +367,13 @@ PyObject* SubnetTree::prefixes(bool ipv4_native /*=false*/, bool with_len /*=tru
                 addrstart += 12;
 
                 if ( with_len ) {
-                    snprintf(buffer, sizeof buffer, "%d.%d.%d.%d/%d",
-                                               addrstart[0], addrstart[1],
-                                               addrstart[2], addrstart[3],
-                                               pf->bitlen - 96);
+                    snprintf(buffer, sizeof buffer, "%d.%d.%d.%d/%d", addrstart[0], addrstart[1], addrstart[2],
+                             addrstart[3], pf->bitlen - 96);
                 }
 
                 else {
-                    snprintf(buffer, sizeof buffer, "%d.%d.%d.%d",
-                                               addrstart[0], addrstart[1],
-                                               addrstart[2], addrstart[3]);
+                    snprintf(buffer, sizeof buffer, "%d.%d.%d.%d", addrstart[0], addrstart[1], addrstart[2],
+                             addrstart[3]);
                 }
 
                 wrote_buffer = true;
@@ -431,18 +404,12 @@ PyObject* SubnetTree::prefixes(bool ipv4_native /*=false*/, bool with_len /*=tru
 
         PySet_Add(set, pstr);
         Py_DECREF(pstr);
-
-    } PATRICIA_WALK_END;
+    }
+    PATRICIA_WALK_END;
 
     return set;
 }
 
-bool SubnetTree::get_binary_lookup_mode()
-{
-    return binary_lookup_mode;
-}
+bool SubnetTree::get_binary_lookup_mode() { return binary_lookup_mode; }
 
-void SubnetTree::set_binary_lookup_mode(bool arg_binary_lookup_mode)
-{
-    binary_lookup_mode = arg_binary_lookup_mode;
-}
+void SubnetTree::set_binary_lookup_mode(bool arg_binary_lookup_mode) { binary_lookup_mode = arg_binary_lookup_mode; }

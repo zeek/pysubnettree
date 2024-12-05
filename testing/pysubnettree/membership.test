@@ -42,4 +42,3 @@ def do_tests(binarymode):
 
 do_tests(False)
 do_tests(True)
-

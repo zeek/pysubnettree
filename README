@@ -1,7 +1,7 @@
 ..	-*- mode: rst-mode -*-
 ..
 .. Version number is filled in automatically.
-.. |version| replace:: 0.37-5
+.. |version| replace:: 0.37-22
 
 ===============================================
 PySubnetTree - A Python Module for CIDR Lookups
@@ -102,7 +102,7 @@ PySubnetTree comes with a BSD license.
 Prerequisites
 -------------
 
-This package requires Python 3.5 or newer.
+This package requires Python 3.9 or newer.
 
 Installation
 ------------
