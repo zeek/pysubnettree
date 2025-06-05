@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 project(PySubnetTree C CXX)
 include(cmake/CommonCMakeConfig.cmake)
+include(cmake/RequireCXXStd.cmake)
 
 # ##############################################################################
 # Dependency Configuration
