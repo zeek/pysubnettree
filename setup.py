@@ -10,7 +10,7 @@ from distutils.core import Extension
 from setuptools import setup
 
 setup(
-    version="0.37.dev33",  # Filled in automatically.
+    version="0.38",  # Filled in automatically.
     py_modules=["SubnetTree"],
     url="https://github.com/zeek/pysubnettree",
     ext_modules=[

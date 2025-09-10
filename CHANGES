@@ -1,3 +1,7 @@
+0.38 | 2025-09-10 14:51:22 -0700
+
+  * Release v0.38
+
 0.37-33 | 2025-09-10 14:51:17 -0700
 
   * Add github workflow for uploading new versions to pypi (Tim Wojtulewicz, Corelight)
