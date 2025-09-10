@@ -1,3 +1,17 @@
+0.37-33 | 2025-09-10 14:51:17 -0700
+
+  * Add github workflow for uploading new versions to pypi (Tim Wojtulewicz, Corelight)
+
+  * Bump pre-commit and github action versions (Tim Wojtulewicz, Corelight)
+
+  * Switch to newly-recommended way for defining the license in pyproject.toml (Tim Wojtulewicz, Corelight)
+
+    This gets rid of the following warning when installing:
+
+    Please use a simple string containing a SPDX expression for `project.license`. You can also use `project.license-files`. (Both options available on setuptools>=77.0.0).
+
+  * Drop support for Python 3.9 (Tim Wojtulewicz, Corelight)
+
 0.37-28 | 2025-07-09 12:15:08 -0700
 
   * Require C++20 for builds (Tim Wojtulewicz, Corelight)

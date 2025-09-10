@@ -7,14 +7,13 @@ description = "Map subnets in CIDR notation to Python objects"
 readme = "README"
 dynamic = ["version"]
 
-license = { text = "3-clause BSD License" }
+license = "BSD-3-Clause-LBNL"
 
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 
 classifiers = [
     'Development Status :: 5 - Production/Stable',
     'Environment :: Console',
-    'License :: OSI Approved :: BSD License',
     'Operating System :: POSIX :: Linux',
     'Operating System :: POSIX :: BSD :: FreeBSD',
     'Operating System :: MacOS :: MacOS X',
