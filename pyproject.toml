@@ -4,9 +4,13 @@ requires = ["setuptools"]
 [project]
 name = "pysubnettree"
 description = "Map subnets in CIDR notation to Python objects"
-readme = "README"
 dynamic = ["version"]
 license = { text = "3-clause BSD License" }
+
+# We would like to include the README here to be rendered on pypi
+# except that pypi refuses to accept that our RST is correct and
+# valid. 'twine check' says it's valid locally, but pypi refuses
+# to accept it when uploaded.
 
 requires-python = ">=3.10"
 
