@@ -6,6 +6,7 @@ name = "pysubnettree"
 description = "Map subnets in CIDR notation to Python objects"
 dynamic = ["version"]
 license = { text = "3-clause BSD License" }
+readme = {file = "README", content-type = "text/x-rst"}
 
 # We would like to include the README here to be rendered on pypi
 # except that pypi refuses to accept that our RST is correct and
