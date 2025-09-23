@@ -103,3 +103,7 @@ Installation
 Installation is pretty simple::
 
    > python3 setup.py install
+
+A PyPI package exists as well and can be installed via ``pip``:
+
+   > pip3 install pysubnettree
