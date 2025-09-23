@@ -95,7 +95,7 @@ PySubnetTree comes with a BSD license.
 Prerequisites
 -------------
 
-This package requires Python 3.9 or newer.
+This package requires Python 3.10 or newer.
 
 Installation
 ------------
