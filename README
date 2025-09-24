@@ -1,22 +1,19 @@
 ..	-*- mode: rst-mode -*-
 ..
 .. Version number is filled in automatically.
-.. |version| replace:: 0.38.1
+.. |version| replace:: 0.38.1-5
 
 ===============================================
 PySubnetTree - A Python Module for CIDR Lookups
 ===============================================
 
-.. rst-class:: opening
+The PySubnetTree package provides a Python data structure ``SubnetTree`` which maps
+subnets given in `CIDR <http://tools.ietf.org/html/rfc4632>`_ notation (incl.
+corresponding IPv6 versions) to Python objects. Lookups are performed by longest-prefix
+matching.
 
-    The PySubnetTree package provides a Python data structure
-    ``SubnetTree`` which maps subnets given in `CIDR
-    <http://tools.ietf.org/html/rfc4632>`_ notation (incl.
-    corresponding IPv6 versions) to Python objects. Lookups are
-    performed by longest-prefix matching.
-
-    PySubnetTree should generally work on Unix-like platforms such as Linux,
-    macOS, and FreeBSD, but does not support Windows.
+PySubnetTree should generally work on Unix-like platforms such as Linux, macOS, and
+FreeBSD, but does not support Windows.
 
 Download
 --------
@@ -24,11 +21,10 @@ Download
 You can find the latest PySubnetTree release for download at
 https://www.zeek.org/download.
 
-PySubnetTree's git repository is located at
-https://github.com/zeek/pysubnettree
+PySubnetTree's git repository is located at https://github.com/zeek/pysubnettree
 
-This document describes PySubnetTree |version|. See the ``CHANGES``
-file for version history.
+This document describes PySubnetTree |version|. See the ``CHANGES`` file for version
+history.
 
 
 Example
@@ -71,10 +67,9 @@ PySubnetTree also supports IPv6 addresses and prefixes::
     ['Company 1, Site 1', 'Company 1']
 
 
-By default, CIDR prefixes and IP addresses are given as strings.
-Alternatively, a ``SubnetTree`` object can be switched into *binary
-mode*, in which single addresses are passed in the form of packed
-binary strings as, e.g., returned by `socket.inet_aton
+By default, CIDR prefixes and IP addresses are given as strings.  Alternatively, a
+``SubnetTree`` object can be switched into *binary mode*, in which single addresses are
+passed in the form of packed binary strings as, e.g., returned by `socket.inet_aton
 <http://docs.python.org/3/library/socket.html#socket.inet_aton>`_::
 
 
@@ -87,14 +82,12 @@ binary strings as, e.g., returned by `socket.inet_aton
     >>> print(t[socket.inet_aton("10.1.42.1")])
     Network 1, Subnet 42
 
-A SubnetTree also provides methods ``insert(prefix,object=None)`` for insertion
-of prefixes (``object`` can be skipped to use the tree like a set), and
-``remove(prefix)`` for removing entries (``remove`` performs an _exact_ match
-rather than longest-prefix).
+A SubnetTree also provides methods ``insert(prefix,object=None)`` for insertion of
+prefixes (``object`` can be skipped to use the tree like a set), and ``remove(prefix)``
+for removing entries (``remove`` performs an _exact_ match rather than longest-prefix).
 
-Internally, the CIDR prefixes of a ``SubnetTree`` are managed by a
-Patricia tree data structure and lookups are therefore efficient
-even with a large number of prefixes.
+Internally, the CIDR prefixes of a ``SubnetTree`` are managed by a Patricia tree data
+structure and lookups are therefore efficient even with a large number of prefixes.
 
 PySubnetTree comes with a BSD license.
 
@@ -102,7 +95,7 @@ PySubnetTree comes with a BSD license.
 Prerequisites
 -------------
 
-This package requires Python 3.9 or newer.
+This package requires Python 3.10 or newer.
 
 Installation
 ------------
@@ -110,3 +103,7 @@ Installation
 Installation is pretty simple::
 
    > python3 setup.py install
+
+A PyPI package exists as well and can be installed via ``pip``:
+
+   > pip3 install pysubnettree

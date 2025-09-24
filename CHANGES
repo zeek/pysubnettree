@@ -1,3 +1,13 @@
+0.38.1-5 | 2025-09-24 08:30:49 -0700
+
+  * Specify readme path and type in pyproject.toml (Tim Wojtulewicz, Corelight)
+
+  * Add README mention of PyPI package for installation (Tim Wojtulewicz, Corelight)
+
+  * Update README to specify Python 3.10 dependency (Tim Wojtulewicz, Corelight)
+
+  * Fix README to allow uploading to PyPI (Tim Wojtulewicz, Corelight)
+
 0.38.1 | 2025-09-11 10:41:31 -0700
 
   * Release 0.38.1.
