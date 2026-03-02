@@ -1,3 +1,14 @@
+0.38.1-8 | 2026-03-02 15:41:22 -0700
+
+  * Use SPDX license expression in pyproject.toml (Doğukan Çağatay)
+
+    Replace the deprecated `project.license` table format with a SPDX
+    license expression string ("BSD-3-Clause") and remove the deprecated
+    `License :: OSI Approved :: BSD License` classifier, as required by
+    setuptools>=77.0.0.
+
+  * Update cmake submodule [nomail] (Tim Wojtulewicz, Corelight)
+
 0.38.1-5 | 2025-09-24 08:30:49 -0700
 
   * Specify readme path and type in pyproject.toml (Tim Wojtulewicz, Corelight)
