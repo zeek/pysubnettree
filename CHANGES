@@ -1,3 +1,23 @@
+0.38.1-13 | 2026-08-19 08:19:44 +0200
+
+  * Migrate build off deprecated `swig_link_libraries` (Benjamin Bannier, Corelight)
+
+    With my cmake-4.4.2 the previous use of `swig_link_libraries` triggered
+    a deprecation warning:
+
+    ```
+    CMake Warning (deprecated) at /opt/homebrew/share/cmake/Modules/UseSWIG.cmake:1107 (message):
+      SWIG_LINK_LIBRARIES is deprecated.  Use TARGET_LINK_LIBRARIES instead.
+    Call Stack (most recent call first):
+      auxil/zeekctl/auxil/pysubnettree/CMakeLists.txt:29 (swig_link_libraries)
+    This warning is for project developers.  Use -Wno-author or -Wno-deprecated
+    to suppress it.
+    ```
+
+    This patch updates the setup so it configures without warning.
+
+  * Updating submodule(s) [nomail] (Tim Wojtulewicz, Corelight)
+
 0.38.1-8 | 2026-03-02 15:41:22 -0700
 
   * Use SPDX license expression in pyproject.toml (Doğukan Çağatay)

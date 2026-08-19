@@ -26,7 +26,7 @@ set(SWIG_MODULE_SubnetTree_EXTRA_DEPS include/SubnetTree.h)
 
 swig_add_library(SubnetTree LANGUAGE python SOURCES SubnetTree.i SubnetTree.cc patricia.c)
 
-swig_link_libraries(SubnetTree ${Python_LIBRARIES})
+target_link_libraries(SubnetTree ${Python_LIBRARIES})
 set_source_files_properties(${swig_generated_file_fullname} SubnetTree.cc
                             PROPERTIES COMPILE_FLAGS -fno-strict-aliasing)
 
